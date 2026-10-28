@@ -58,7 +58,9 @@ test('parses interpolation in at-rule params without space before bracket (#180)
 });
 
 test('parses interpolation followed by a media feature (#180)', (t) => {
-  const root = parse('@media @{mq-xs} and (min-width: 5px) { .a { color: red } }');
+  const root = parse(
+    '@media @{mq-xs} and (min-width: 5px) { .a { color: red } }',
+  );
 
   t.is(root.first.params, '@{mq-xs} and (min-width: 5px)');
 });
@@ -70,7 +72,9 @@ test('parses multiple interpolations in at-rule params (#180)', (t) => {
 });
 
 test('parses interpolation inside at-rule params word (#180)', (t) => {
-  const root = parse('@media screen and (max-width: @{w}) { .a { color: red } }');
+  const root = parse(
+    '@media screen and (max-width: @{w}) { .a { color: red } }',
+  );
 
   t.is(root.first.params, 'screen and (max-width: @{w})');
 });
