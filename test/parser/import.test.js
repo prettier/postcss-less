@@ -1,9 +1,7 @@
 import test from 'ava';
 import AtRule from 'postcss/lib/at-rule';
 
-import syntax from '../../lib/index.js';
-
-const { parse, nodeToString } = syntax;
+import { parse, nodeToString } from '../../lib/index.js';
 
 test('@at-rules != @imports', async (t) => {
   const less = '@const "foo.less";';

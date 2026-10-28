@@ -5,9 +5,8 @@ import { join } from 'node:path';
 import test from 'ava';
 import postcss from 'postcss';
 
-import syntax from '../lib/index.js';
+import syntax, { parser } from '../lib/index.js';
 
-const { parser } = syntax;
 const __dirname = import.meta.dirname;
 
 // silence the rediculously verbose "You did not set any plugins, parser, or

@@ -1,9 +1,7 @@
 import test from 'ava';
 import Comment from 'postcss/lib/comment';
 
-import syntax from '../../lib/index.js';
-
-const { parse, nodeToString } = syntax;
+import { parse, nodeToString } from '../../lib/index.js';
 
 test('inline comment', (t) => {
   const less = '// batman';

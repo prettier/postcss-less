@@ -1,8 +1,6 @@
 import test from 'ava';
 
-import syntax from '../../lib/index.js';
-
-const { parse, nodeToString } = syntax;
+import { parse, nodeToString } from '../../lib/index.js';
 
 test('should allow case-insensitive !important (#89)', (t) => {
   const less = 'a{k: v !IMPORTANT;}';

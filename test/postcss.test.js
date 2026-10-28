@@ -2,9 +2,7 @@ import test from 'ava';
 import postcss from 'postcss';
 import CssSyntaxError from 'postcss/lib/css-syntax-error';
 
-import syntax from '../lib/index.js';
-
-const { parser } = syntax;
+import syntax, { parser } from '../lib/index.js';
 
 // silence the rediculously verbose "You did not set any plugins, parser, or
 // stringifier" warnings in PostCSS.
