@@ -38,7 +38,7 @@
     "less": "4.9.1",
     "npm-run-all2": "9.0.4",
     "postcss": "8.3.5",
-    "postcss-parser-tests": "8.3.5",
+    "postcss-parser-tests": "8.10.0",
     "prettier": "3.9.10",
     "url-join": "6.0.0"
   },
