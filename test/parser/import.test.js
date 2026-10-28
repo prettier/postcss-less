@@ -92,6 +92,9 @@ test('mmissing semicolon (#88)', async (t) => {
 }`;
   const root = parse(less);
 
-  t.is(root.first.filename, '"../assets/font/league-gothic/league-gothic.css"\n\n.ManagerPage');
+  t.is(
+    root.first.filename,
+    '"../assets/font/league-gothic/league-gothic.css"\n\n.ManagerPage'
+  );
   t.is(nodeToString(root), less);
 });

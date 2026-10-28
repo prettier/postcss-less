@@ -13,10 +13,15 @@
     "node": ">=12"
   },
   "scripts": {
+    "fix": "run-p --continue-on-error \"fix:*\"",
+    "fix:eslint": "yarn lint:eslint --fix",
+    "fix:prettier": "prettier . --write",
     "ci:coverage": "nyc npm run test && nyc report --reporter=text-lcov > coverage.lcov",
     "ci:lint": "npm run lint && npm run security",
     "ci:test": "npm run test",
-    "lint": "eslint --fix --cache lib test",
+    "lint": "run-p --continue-on-error \"lint:*\"",
+    "lint:eslint": "eslint --fix --cache lib test",
+    "lint:prettier": "prettier . --check",
     "test": "ava"
   },
   "files": [
@@ -30,12 +35,16 @@
     "cheerio": "1.0.0-rc.10",
     "eslint-config-shellscape": "6.0.2",
     "eslint-plugin-filenames": "1.2.0",
+    "eslint-plugin-prettier": "^5.5.7",
     "is-absolute-url": "3.0.0",
     "less": "4.1.1",
     "node-fetch": "2.6.1",
+    "npm-run-all2": "^9.0.4",
     "nyc": "15.1.0",
     "postcss": "8.3.5",
     "postcss-parser-tests": "8.3.5",
+    "prettier": "^3.9.10",
+    "prettier-plugin-package": "^2.0.0",
     "url-join": "4.0.0"
   },
   "peerDependencies": {

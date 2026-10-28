@@ -11,7 +11,11 @@ const { nodeToString, parse, stringify } = syntax;
 
 eachTest((name, code, json) => {
   // Skip comments.css, because we have an extended Comment node
-  if (name === 'comments.css' || name === 'atrule-no-space.css' || name === 'inside.css') {
+  if (
+    name === 'comments.css' ||
+    name === 'atrule-no-space.css' ||
+    name === 'inside.css'
+  ) {
     return;
   }
 

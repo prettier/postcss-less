@@ -15,7 +15,10 @@ const __dirname = import.meta.dirname;
 console.warn = () => {}; // eslint-disable-line no-console
 
 test('should parse LESS integration syntax and generate a source map', async (t) => {
-  const less = readFileSync(join(__dirname, './integration/ext.cx.dashboard.less'), 'utf-8');
+  const less = readFileSync(
+    join(__dirname, './integration/ext.cx.dashboard.less'),
+    'utf-8'
+  );
   const result = await postcss().process(less, {
     map: { annotation: false, inline: false, sourcesContent: true },
     parser,

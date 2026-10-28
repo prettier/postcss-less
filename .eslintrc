@@ -11,6 +11,12 @@
         "import/extensions": "off",
         "import/no-extraneous-dependencies": "off"
       }
+    },
+    {
+      "files": "**/*.js",
+      "rules": {
+        "prettier/prettier": "off"
+      }
     }
   ]
 }
