@@ -30,7 +30,6 @@
     "README.md",
     "LICENSE"
   ],
-  "dependencies": {},
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "ava": "8.1.1",
@@ -74,5 +73,6 @@
       "lib/client*.js",
       "test/"
     ]
-  }
+  },
+  "packageManager": "yarn@4.18.1"
 }
