@@ -1475,10 +1475,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-absolute-url@npm:3.0.0":
-  version: 3.0.0
-  resolution: "is-absolute-url@npm:3.0.0"
-  checksum: 10/808920f237642d826e253604fc8a236a80535bd9234d70fa0f8150fa26c9fde74d2cfd595e656dae7a468cbe6102c09b82e5376bd92efa40ca74e890afd577f1
+"is-absolute-url@npm:5.0.0":
+  version: 5.0.0
+  resolution: "is-absolute-url@npm:5.0.0"
+  checksum: 10/4ac040290eaadb731c2640cdb53b4ec0529cbf046877049b482f048e46c62a4f6658bf21b360f15f6be9a84f706d349c65f1a00f07e6cf5fc0949c9afba8128e
   languageName: node
   linkType: hard
 
@@ -2102,7 +2102,7 @@ __metadata:
     eslint: "npm:^10.13.0"
     eslint-config-prettier: "npm:^10.1.8"
     globals: "npm:^17.13.0"
-    is-absolute-url: "npm:3.0.0"
+    is-absolute-url: "npm:5.0.0"
     less: "npm:4.1.1"
     node-fetch: "npm:2.6.1"
     npm-run-all2: "npm:^9.0.4"
