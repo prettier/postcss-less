@@ -1911,6 +1911,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"outdent@npm:0.8.0":
+  version: 0.8.0
+  resolution: "outdent@npm:0.8.0"
+  checksum: 10/a556c5c308705ad4e3441be435f2b2cf014cb5f9753a24cbd080eadc473b988c77d0d529a6a9a57c3931fb4178e5a81d668cc4bc49892b668191a5d0ba3df76e
+  languageName: node
+  linkType: hard
+
 "p-limit@npm:^3.0.2":
   version: 3.1.0
   resolution: "p-limit@npm:3.1.0"
@@ -2058,6 +2065,7 @@ __metadata:
     is-absolute-url: "npm:5.0.0"
     less: "npm:4.9.1"
     npm-run-all2: "npm:9.0.4"
+    outdent: "npm:0.8.0"
     postcss: "npm:8.5.32"
     postcss-parser-tests: "npm:8.10.0"
     prettier: "npm:3.9.10"

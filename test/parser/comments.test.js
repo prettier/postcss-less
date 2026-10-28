@@ -1,5 +1,6 @@
 import test from 'ava';
 import Comment from 'postcss/lib/comment';
+import { outdent } from 'outdent';
 
 import { parse, nodeToString } from '../../lib/index.js';
 
@@ -184,7 +185,14 @@ test('inline comments with asterisk are persisted (#135)', (t) => {
 });
 
 test('handles single quotes in comments (#163)', (t) => {
-  const less = `a {\n  // '\n  color: pink;\n}\n\n/** ' */`;
+  const less = outdent`
+    a {
+      // '
+      color: pink;
+    }
+
+    /** ' */
+  `;
 
   const root = parse(less);
 
@@ -196,7 +204,7 @@ test('handles single quotes in comments (#163)', (t) => {
   t.is(commentNode.source.start.line, 6);
   t.is(commentNode.source.start.column, 1);
   t.is(commentNode.source.end.line, 6);
-  t.is(commentNode.source.end.column, 8);
+  t.is(commentNode.source.end.column, 9);
 
   const [innerCommentNode, declarationNode] = ruleNode.nodes;
 
@@ -211,7 +219,7 @@ test('handles single quotes in comments (#163)', (t) => {
   t.is(declarationNode.source.start.line, 3);
   t.is(declarationNode.source.start.column, 3);
   t.is(declarationNode.source.end.line, 3);
-  t.is(declarationNode.source.end.column, 14);
+  t.is(declarationNode.source.end.column, 15);
 
   t.is(nodeToString(root), less);
 });
