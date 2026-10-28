@@ -87,7 +87,7 @@ test('class and id selectors', (t) => {
 
   const root = parse(less);
   const {
-    nodes: [first, second, last],
+    nodes: [first, second, last]
   } = root;
 
   t.is(first.first.name, 'a');

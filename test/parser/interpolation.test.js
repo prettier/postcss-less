@@ -84,6 +84,6 @@ test('parses escaping', (t) => {
   t.is(first.first.value, '~`"@{arguments}".replace(/[[]]/g, \'\')`');
   t.is(
     root.nodes[1].first.selector,
-    '& ~ .stock-bar__content .stock-bar__control_pause',
+    '& ~ .stock-bar__content .stock-bar__control_pause'
   );
 });
