@@ -215,3 +215,35 @@ test('handles single quotes in comments (#163)', (t) => {
 
   t.is(nodeToString(root), less);
 });
+
+test('preserves source.input.file when retokenizing inline comments', (t) => {
+  const from = '/repro.less';
+  // The quote in the inline comment, plus a later quote, makes the tokenizer run
+  // the string past the newline, which sends `isInlineComment` down the path that
+  // builds a replacement Input for the remainder of the file.
+  const less = `a {\n  // it's\n  color: red;\n}\nb { content: 'x'; }\n`;
+
+  const root = parse(less, { from });
+
+  const nodes = [];
+  root.walk((node) => nodes.push(node));
+
+  // Nodes produced by the replacement tokenizer must keep the original path.
+  for (const node of nodes) {
+    t.is(node.source.input.file, from);
+  }
+
+  // The position fix-up in lib/index.js still applies.
+  t.deepEqual(
+    nodes.map((node) => [node.type, node.source.start.line]),
+    [
+      ['rule', 1],
+      ['comment', 2],
+      ['decl', 3],
+      ['rule', 5],
+      ['decl', 5],
+    ],
+  );
+
+  t.is(nodeToString(root), less);
+});
