@@ -3,6 +3,7 @@
   dependencyDashboardApproval: true,
   postUpdateOptions: ["yarnDedupeHighest"],
   lockFileMaintenance: { enabled: true },
+  extends: [":pinDevDependencies"],
   rangeStrategy: "bump",
   packageRules: [
     {
