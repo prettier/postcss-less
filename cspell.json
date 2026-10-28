@@ -10,8 +10,5 @@
     "untokenized"
   ],
   "ignoreRegExpList": [],
-  "ignorePaths": [
-    "LICENSE",
-    "test/integration/ext.cx.dashboard.less"
-  ]
+  "ignorePaths": ["LICENSE", "test/integration/ext.cx.dashboard.less"]
 }
