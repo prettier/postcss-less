@@ -4,11 +4,11 @@
   "type": "module",
   "description": "LESS parser for PostCSS",
   "license": "MIT",
-  "repository": "shellscape/postcss-less",
+  "repository": "prettier/postcss-less",
   "author": "Denys Kniazevych <webschik@gmail.com>",
   "maintainer": "Andrew Powell <andrew@shellscape.org>",
-  "homepage": "https://github.com/shellscape/postcss-less",
-  "bugs": "https://github.com/shellscape/postcss-less/issues",
+  "homepage": "https://github.com/prettier/postcss-less",
+  "bugs": "https://github.com/prettier/postcss-less/issues",
   "main": "lib/index.js",
   "engines": {
     "node": ">=12"
@@ -26,9 +26,7 @@
     "test": "ava"
   },
   "files": [
-    "lib",
-    "README.md",
-    "LICENSE"
+    "lib"
   ],
   "devDependencies": {
     "@eslint/js": "^10.0.1",
