@@ -16,11 +16,6 @@ jobs:
           - '26'
           - '24'
           - '22'
-          - '20'
-          - '18'
-          - '16'
-          - '14'
-          - '12'
     name: Node.js ${{ matrix.node_version }}
     runs-on: ubuntu-latest
     steps:
