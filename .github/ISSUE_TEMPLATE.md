@@ -4,10 +4,10 @@
   information about errors, if an error has occurred.
 -->
 
-* Node Version:
-* NPM Version:
-* postcss Version:
-* postcss-less Version:
+- Node Version:
+- NPM Version:
+- postcss Version:
+- postcss-less Version:
 
 If you have a large amount of code to share which demonstrates the problem you're experiencing, please provide a link to your
 repository rather than pasting code. Otherwise, please paste relevant short snippets below.
