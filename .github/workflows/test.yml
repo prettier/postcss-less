@@ -30,7 +30,7 @@ jobs:
       - name: Submit coverage data to codecov.
         run: bash <(curl -s https://codecov.io/bash)
 
-  analysis:
+  lint:
     strategy:
       fail-fast: false
     runs-on: ubuntu-latest
