@@ -82,5 +82,8 @@ test('parses escaping', (t) => {
   t.is(first.selector, '.m_transition (...)');
   t.is(first.first.name, 'props');
   t.is(first.first.value, '~`"@{arguments}".replace(/[[]]/g, \'\')`');
-  t.is(root.nodes[1].first.selector, '& ~ .stock-bar__content .stock-bar__control_pause');
+  t.is(
+    root.nodes[1].first.selector,
+    '& ~ .stock-bar__content .stock-bar__control_pause',
+  );
 });

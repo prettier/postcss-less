@@ -10,7 +10,7 @@ test('@at-rules != @imports', async (t) => {
   const root = parse(less);
   const {
     first,
-    source: { input }
+    source: { input },
   } = root;
 
   t.truthy(root);
@@ -25,7 +25,7 @@ test('@imports', async (t) => {
   const root = parse(less);
   const {
     first,
-    source: { input }
+    source: { input },
   } = root;
 
   t.truthy(root);
@@ -92,6 +92,9 @@ test('mmissing semicolon (#88)', async (t) => {
 }`;
   const root = parse(less);
 
-  t.is(root.first.filename, '"../assets/font/league-gothic/league-gothic.css"\n\n.ManagerPage');
+  t.is(
+    root.first.filename,
+    '"../assets/font/league-gothic/league-gothic.css"\n\n.ManagerPage',
+  );
   t.is(nodeToString(root), less);
 });

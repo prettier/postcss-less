@@ -65,7 +65,8 @@ test('parses multiple extends', (t) => {
 });
 
 test('parses nth expression in extend', (t) => {
-  const less = ':nth-child(1n+3) {color: blue;} .child:extend(:nth-child(n+3)) {}';
+  const less =
+    ':nth-child(1n+3) {color: blue;} .child:extend(:nth-child(n+3)) {}';
   const root = parse(less);
   const { first, last } = root;
 
@@ -83,7 +84,8 @@ test('"all"', (t) => {
 });
 
 test('with interpolation', (t) => {
-  const less = '.bucket {color: blue;}\n.some-class:extend(@{variable}) {}\n@variable: .bucket;';
+  const less =
+    '.bucket {color: blue;}\n.some-class:extend(@{variable}) {}\n@variable: .bucket;';
   const root = parse(less);
 
   t.is(root.nodes[0].selector, '.bucket');

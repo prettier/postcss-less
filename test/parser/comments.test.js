@@ -25,7 +25,10 @@ test('two-line inline comment with a single quote and windows EOL', (t) => {
   t.truthy(root);
   t.true(first instanceof Comment);
   t.true(first.inline);
-  t.is(first.text, `it's first comment (this line should end with Windows new line symbols)`);
+  t.is(
+    first.text,
+    `it's first comment (this line should end with Windows new line symbols)`,
+  );
   t.true(second instanceof Comment);
   t.true(second.inline);
   t.is(second.text, `it's second comment`);
@@ -146,7 +149,7 @@ test('parses multiline comments', (t) => {
   t.deepEqual(first.raws, {
     before: ' ',
     left: ' ',
-    right: ' '
+    right: ' ',
   });
   t.falsy(first.inline);
   t.is(nodeToString(root), less);
