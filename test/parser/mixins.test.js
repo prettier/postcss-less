@@ -1,6 +1,6 @@
-const test = require('ava');
+import test from 'ava';
 
-const { parse, nodeToString } = require('../../lib');
+import { parse, nodeToString } from '../../lib/index.js';
 
 test('basic', (t) => {
   const params = '(  1, 2, 3; something, else; ...) when (@mode=huge)';
@@ -60,7 +60,6 @@ test('without body, no params, no whitepsace', (t) => {
 //   t.is(first.type, 'atrule');
 // });
 
-/* eslint-disable no-multiple-empty-lines */
 test('class and id selectors', (t) => {
   const less = `
     .mixin-class {
@@ -85,7 +84,7 @@ test('class and id selectors', (t) => {
 
   const root = parse(less);
   const {
-    nodes: [first, second, last]
+    nodes: [first, second, last],
   } = root;
 
   t.is(first.first.name, 'a');

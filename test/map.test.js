@@ -1,24 +1,26 @@
-const { readFileSync } = require('fs');
+import { readFileSync } from 'node:fs';
 
-const { join } = require('path');
+import { join } from 'node:path';
 
-const test = require('ava');
-const postcss = require('postcss');
+import test from 'ava';
+import postcss from 'postcss';
 
-const syntax = require('../lib');
+import syntax from '../lib/index.js';
 
-const { parser } = syntax;
+const __dirname = import.meta.dirname;
 
 // silence the rediculously verbose "You did not set any plugins, parser, or
 // stringifier" warnings in PostCSS.
-console.warn = () => {}; // eslint-disable-line no-console
+console.warn = () => {};
 
 test('should parse LESS integration syntax and generate a source map', async (t) => {
-  const less = readFileSync(join(__dirname, './integration/ext.cx.dashboard.less'), 'utf-8');
+  const less = readFileSync(
+    join(__dirname, './integration/ext.cx.dashboard.less'),
+    'utf-8',
+  );
   const result = await postcss().process(less, {
+    map: { annotation: false, inline: false, sourcesContent: true },
     syntax,
-    parser,
-    map: { inline: false, annotation: false, sourcesContent: true }
   });
 
   t.truthy(result);
@@ -34,9 +36,8 @@ test('should parse LESS inline comment syntax and generate a source map', async 
   }
   `;
   const result = await postcss().process(less, {
+    map: { annotation: false, inline: false, sourcesContent: true },
     syntax,
-    parser,
-    map: { inline: false, annotation: false, sourcesContent: true }
   });
 
   t.truthy(result);

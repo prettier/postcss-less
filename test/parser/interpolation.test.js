@@ -1,8 +1,8 @@
 /* eslint no-useless-escape: off */
 
-const test = require('ava');
+import test from 'ava';
 
-const { parse } = require('../../lib');
+import { parse } from '../../lib/index.js';
 
 test('parses interpolation', (t) => {
   const root = parse('@{selector}:hover { @{prop}-size: @{color} }');
@@ -120,5 +120,8 @@ test('parses escaping', (t) => {
   t.is(first.selector, '.m_transition (...)');
   t.is(first.first.name, 'props');
   t.is(first.first.value, '~`"@{arguments}".replace(/[[]]/g, \'\')`');
-  t.is(root.nodes[1].first.selector, '& ~ .stock-bar__content .stock-bar__control_pause');
+  t.is(
+    root.nodes[1].first.selector,
+    '& ~ .stock-bar__content .stock-bar__control_pause',
+  );
 });
