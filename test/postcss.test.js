@@ -2,7 +2,7 @@ import test from 'ava';
 import postcss from 'postcss';
 import CssSyntaxError from 'postcss/lib/css-syntax-error';
 
-import syntax, { parser } from '../lib/index.js';
+import syntax from '../lib/index.js';
 
 // silence the rediculously verbose "You did not set any plugins, parser, or
 // stringifier" warnings in PostCSS.
@@ -10,7 +10,7 @@ console.warn = () => {};
 
 test('should process LESS syntax', async (t) => {
   const less = 'a { b {} }';
-  const result = await postcss().process(less, { parser, syntax });
+  const result = await postcss().process(less, { syntax });
 
   t.truthy(result);
   t.is(result.css, less);
