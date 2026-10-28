@@ -4,11 +4,11 @@
   "type": "module",
   "description": "LESS parser for PostCSS",
   "license": "MIT",
-  "repository": "shellscape/postcss-less",
+  "repository": "prettier/postcss-less",
   "author": "Denys Kniazevych <webschik@gmail.com>",
   "maintainer": "Andrew Powell <andrew@shellscape.org>",
-  "homepage": "https://github.com/shellscape/postcss-less",
-  "bugs": "https://github.com/shellscape/postcss-less/issues",
+  "homepage": "https://github.com/prettier/postcss-less",
+  "bugs": "https://github.com/prettier/postcss-less/issues",
   "main": "lib/index.js",
   "engines": {
     "node": ">=12"
@@ -17,22 +17,19 @@
     "fix": "run-p --continue-on-error \"fix:*\"",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "prettier . --write",
-    "ci:coverage": "nyc npm run test && nyc report --reporter=text-lcov > coverage.lcov",
-    "ci:lint": "npm run lint && npm run security",
-    "ci:test": "npm run test",
     "lint": "run-p --continue-on-error \"lint:*\"",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier . --check",
-    "test": "ava"
+    "test": "ava",
+    "test-coverage": "c8 yarn test"
   },
   "files": [
-    "lib",
-    "README.md",
-    "LICENSE"
+    "lib"
   ],
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "ava": "8.1.1",
+    "c8": "12.0.0",
     "cheerio": "1.0.0-rc.10",
     "eslint": "^10.13.0",
     "eslint-config-prettier": "^10.1.8",
@@ -41,7 +38,6 @@
     "less": "4.1.1",
     "node-fetch": "2.6.1",
     "npm-run-all2": "^9.0.4",
-    "nyc": "15.1.0",
     "postcss": "8.3.5",
     "postcss-parser-tests": "8.3.5",
     "prettier": "^3.9.10",
@@ -65,7 +61,11 @@
     ],
     "verbose": true
   },
-  "nyc": {
+  "c8": {
+    "reporter": [
+      "lcov",
+      "text"
+    ],
     "include": [
       "lib/*.js"
     ],
@@ -74,5 +74,6 @@
       "test/"
     ]
   },
-  "packageManager": "yarn@4.18.1"
+  "packageManager": "yarn@4.18.1",
+  "sideEffects": false
 }

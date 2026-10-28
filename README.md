@@ -1,9 +1,9 @@
-[tests]: https://img.shields.io/circleci/project/github/shellscape/postcss-less.svg
-[tests-url]: https://circleci.com/gh/shellscape/postcss-less
-[cover]: https://codecov.io/gh/shellscape/postcss-less/branch/main/graph/badge.svg
-[cover-url]: https://codecov.io/gh/shellscape/postcss-less
-[size]: https://packagephobia.now.sh/badge?p=postcss-less
-[size-url]: https://packagephobia.now.sh/result?p=postcss-less
+[coverage_badge]: https://img.shields.io/codecov/c/github/prettier/postcss-less.svg?style=flat-square
+[coverage_link]: https://app.codecov.io/gh/prettier/postcss-less
+[license_badge]: https://img.shields.io/npm/l/postcss-less.svg?style=flat-square
+[license_link]: https://github.com/prettier/postcss-less/blob/main/license
+[package_version_badge]: https://img.shields.io/npm/v/postcss-less.svg?style=flat-square
+[package_link]: https://www.npmjs.com/package/postcss-less
 [PostCSS]: https://github.com/postcss/postcss
 [PostCSS-SCSS]: https://github.com/postcss/postcss-scss
 [LESS]: https://lesscss.org/
@@ -12,9 +12,9 @@
 
 # postcss-less
 
-[![tests][tests]][tests-url]
-[![cover][cover]][cover-url]
-[![size][size]][size-url]
+[![Npm Version][package_version_badge]][package_link]
+[![MIT License][license_badge]][license_link]
+[![Coverage][coverage_badge]][coverage_link]
 
 A [PostCSS] Syntax for parsing [LESS]
 
