@@ -5,7 +5,7 @@
 // const { join } = require('path');
 
 import test from 'ava';
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 import isAbsoluteUrl from 'is-absolute-url';
 import urljoin from 'url-join';
 import postcss from 'postcss';
