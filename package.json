@@ -21,7 +21,8 @@
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier . --check",
     "test": "ava",
-    "test-coverage": "c8 yarn test"
+    "test-coverage": "c8 yarn test",
+    "release": "release-it"
   },
   "files": [
     "lib"
@@ -41,10 +42,11 @@
     "postcss": "8.5.32",
     "postcss-parser-tests": "8.10.0",
     "prettier": "3.9.10",
+    "release-it": "21.1.1",
     "url-join": "6.0.0"
   },
   "peerDependencies": {
-    "postcss": "^8.3.5"
+    "postcss": "^8.5.32"
   },
   "keywords": [
     "css",
