@@ -6,5 +6,11 @@ coverage.lcov
 npm-debug.log*
 Thumbs.db
 node_modules
-
 s.js
+
+**/.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+**/.pnp.*
