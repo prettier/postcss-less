@@ -27,21 +27,21 @@
     "lib"
   ],
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
+    "@eslint/js": "10.0.1",
     "ava": "8.1.1",
     "c8": "12.0.0",
     "cheerio": "1.0.0-rc.10",
-    "eslint": "^10.13.0",
-    "eslint-config-prettier": "^10.1.8",
-    "globals": "^17.13.0",
+    "eslint": "10.13.0",
+    "eslint-config-prettier": "10.1.8",
+    "globals": "17.13.0",
     "is-absolute-url": "5.0.0",
     "less": "4.1.1",
     "node-fetch": "2.6.7",
-    "npm-run-all2": "^9.0.4",
+    "npm-run-all2": "9.0.4",
     "postcss": "8.3.5",
     "postcss-parser-tests": "8.3.5",
     "prettier": "3.9.10",
-    "prettier-plugin-package": "^2.0.0",
+    "prettier-plugin-package": "2.0.0",
     "url-join": "6.0.0"
   },
   "peerDependencies": {
