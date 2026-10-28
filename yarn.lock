@@ -2117,7 +2117,7 @@ __metadata:
     postcss-parser-tests: "npm:8.3.5"
     prettier: "npm:3.9.10"
     prettier-plugin-package: "npm:^2.0.0"
-    url-join: "npm:4.0.0"
+    url-join: "npm:6.0.0"
   peerDependencies:
     postcss: ^8.3.5
   languageName: unknown
@@ -2564,10 +2564,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"url-join@npm:4.0.0":
-  version: 4.0.0
-  resolution: "url-join@npm:4.0.0"
-  checksum: 10/b7d167149bb21fb569e84160e7b551b994d58bea38a69663de510ae1db868f70fa5d37e1acdcc42d71f3837144a8880b6b96ca096c4c8c384eabc92ccf88a962
+"url-join@npm:6.0.0":
+  version: 6.0.0
+  resolution: "url-join@npm:6.0.0"
+  checksum: 10/54a5d85a812ee7617e12790bb2289afd39e121192a2fdc1d1cdd0cb74adeb661930bd5323956d011918f7bb4b1b3fa21b6baa98559a63ed59ae01583d3b6a641
   languageName: node
   linkType: hard
 
