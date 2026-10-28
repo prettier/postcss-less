@@ -2108,7 +2108,7 @@ __metadata:
     npm-run-all2: "npm:^9.0.4"
     postcss: "npm:8.3.5"
     postcss-parser-tests: "npm:8.3.5"
-    prettier: "npm:^3.9.10"
+    prettier: "npm:3.9.10"
     prettier-plugin-package: "npm:^2.0.0"
     url-join: "npm:4.0.0"
   peerDependencies:
@@ -2154,7 +2154,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.9.10":
+"prettier@npm:3.9.10":
   version: 3.9.10
   resolution: "prettier@npm:3.9.10"
   bin:
