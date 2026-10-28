@@ -1,8 +1,6 @@
-const test = require('ava');
+import test from 'ava';
 
-const syntax = require('../lib');
-
-const { parse, nodeToString } = syntax;
+import { parse, nodeToString } from '../lib/index.js';
 
 const run = (less) => {
   const root = parse(less);
@@ -58,6 +56,12 @@ test('mixin without body. #3', async (t) => {
 
 test('mixin with !important', async (t) => {
   const less = '.foo { .mix() ! important; }';
+  const result = run(less);
+  t.is(result, less);
+});
+
+test('at-rule with interpolated params (#180)', (t) => {
+  const less = '@media @{mq-xs} and (min-width: 5px) { .a { color: red } }';
   const result = run(less);
   t.is(result, less);
 });

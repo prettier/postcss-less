@@ -1,6 +1,6 @@
-const test = require('ava');
+import test from 'ava';
 
-const { parse, nodeToString } = require('../../lib');
+import { parse, nodeToString } from '../../lib/index.js';
 
 test('parses escaped string', (t) => {
   const less = `

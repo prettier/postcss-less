@@ -1,6 +1,7 @@
 {
   "name": "postcss-less",
   "version": "6.0.0",
+  "type": "module",
   "description": "LESS parser for PostCSS",
   "license": "MIT",
   "repository": "shellscape/postcss-less",
@@ -13,14 +14,15 @@
     "node": ">=12"
   },
   "scripts": {
+    "fix": "run-p --continue-on-error \"fix:*\"",
+    "fix:eslint": "yarn lint:eslint --fix",
+    "fix:prettier": "prettier . --write",
     "ci:coverage": "nyc npm run test && nyc report --reporter=text-lcov > coverage.lcov",
     "ci:lint": "npm run lint && npm run security",
     "ci:test": "npm run test",
-    "commitlint": "commitlint",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
-    "lint": "eslint --fix --cache lib test",
-    "lint-staged": "lint-staged",
-    "security": "npm audit --audit-level=high",
+    "lint": "run-p --continue-on-error \"lint:*\"",
+    "lint:eslint": "eslint .",
+    "lint:prettier": "prettier . --check",
     "test": "ava"
   },
   "files": [
@@ -30,21 +32,22 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "@commitlint/cli": "^12.1.4",
-    "@commitlint/config-conventional": "^12.1.4",
-    "ava": "^3.15.0",
-    "cheerio": "^1.0.0-rc.10",
-    "eslint-config-shellscape": "^2.0.2",
-    "eslint-plugin-filenames": "^1.2.0",
-    "is-absolute-url": "^3.0.0",
-    "less": "^4.1.1",
-    "lint-staged": "^11.0.0",
-    "node-fetch": "^2.6.1",
-    "nyc": "^15.1.0",
-    "postcss": "^8.3.5",
-    "postcss-parser-tests": "^8.3.5",
-    "pre-commit": "^1.2.2",
-    "url-join": "^4.0.0"
+    "@eslint/js": "^10.0.1",
+    "ava": "8.1.1",
+    "cheerio": "1.0.0-rc.10",
+    "eslint": "^10.13.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.13.0",
+    "is-absolute-url": "3.0.0",
+    "less": "4.1.1",
+    "node-fetch": "2.6.1",
+    "npm-run-all2": "^9.0.4",
+    "nyc": "15.1.0",
+    "postcss": "8.3.5",
+    "postcss-parser-tests": "8.3.5",
+    "prettier": "^3.9.10",
+    "prettier-plugin-package": "^2.0.0",
+    "url-join": "4.0.0"
   },
   "peerDependencies": {
     "postcss": "^8.3.5"
@@ -60,12 +63,8 @@
     "files": [
       "!**/fixtures/**",
       "!**/helpers/**"
-    ]
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix"
-    ]
+    ],
+    "verbose": true
   },
   "nyc": {
     "include": [
@@ -75,6 +74,5 @@
       "lib/client*.js",
       "test/"
     ]
-  },
-  "pre-commit": "lint-staged"
+  }
 }

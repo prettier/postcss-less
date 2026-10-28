@@ -1,12 +1,9 @@
-[tests]: 	https://img.shields.io/circleci/project/github/shellscape/postcss-less.svg
+[tests]: https://img.shields.io/circleci/project/github/shellscape/postcss-less.svg
 [tests-url]: https://circleci.com/gh/shellscape/postcss-less
-
-[cover]: https://codecov.io/gh/shellscape/postcss-less/branch/master/graph/badge.svg
+[cover]: https://codecov.io/gh/shellscape/postcss-less/branch/main/graph/badge.svg
 [cover-url]: https://codecov.io/gh/shellscape/postcss-less
-
 [size]: https://packagephobia.now.sh/badge?p=postcss-less
 [size-url]: https://packagephobia.now.sh/result?p=postcss-less
-
 [PostCSS]: https://github.com/postcss/postcss
 [PostCSS-SCSS]: https://github.com/postcss/postcss-scss
 [LESS]: https://lesscss.org/
@@ -42,12 +39,12 @@ Please consider [becoming a patron](https://www.patreon.com/shellscape) if you f
 The most common use of `postcss-less` is for applying PostCSS transformations directly to LESS source. eg. ia theme written in LESS which uses [Autoprefixer] to add appropriate vendor prefixes.
 
 ```js
-const syntax = require('postcss-less');
-postcss(plugins)
-  .process(lessText, { syntax: syntax })
-  .then(function (result) {
-    result.content // LESS with transformations
-});
+import postcss from 'postcss';
+import syntax from 'postcss-less';
+
+const result = await postcss().process(lessText, { syntax: syntax });
+
+result.content; // LESS with transformations
 ```
 
 ## LESS Specific Parsing
@@ -72,8 +69,8 @@ Parsing of single-line comments in CSS is supported.
 
 ```less
 :root {
-    // Main theme color
-    --color: red;
+  // Main theme color
+  --color: red;
 }
 ```
 
@@ -113,8 +110,8 @@ To process LESS code without PostCSS transformations, custom stringifier
 should be provided.
 
 ```js
-const postcss = require('postcss');
-const syntax = require('postcss-less');
+import postcss from 'postcss';
+import syntax from 'postcss-less';
 
 const less = `
     // inline comment
@@ -134,7 +131,7 @@ const less = `
 
 const result = await postcss().process(less, { syntax });
 
- // will contain the value of `less`
+// will contain the value of `less`
 const { content } = result;
 ```
 

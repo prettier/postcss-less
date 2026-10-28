@@ -1,8 +1,8 @@
 /* eslint no-useless-escape: off */
 
-const test = require('ava');
+import test from 'ava';
 
-const { parse } = require('../../lib');
+import { parse } from '../../lib/index.js';
 
 test('parses interpolation', (t) => {
   const root = parse('@{selector}:hover { @{prop}-size: @{color} }');
@@ -39,6 +39,50 @@ test('parses non-interpolation', (t) => {
   const root = parse('\\@{ color: black }');
 
   t.is(root.first.selector, '\\@');
+});
+
+test('parses interpolation in at-rule params (#180)', (t) => {
+  const root = parse('@media @{mq-xs} { .a { color: red } }');
+
+  t.is(root.first.type, 'atrule');
+  t.is(root.first.name, 'media');
+  t.is(root.first.params, '@{mq-xs}');
+  t.is(root.first.first.selector, '.a');
+});
+
+test('parses interpolation in at-rule params without space before bracket (#180)', (t) => {
+  const root = parse('@media @{mq-xs}{ .a { color: red } }');
+
+  t.is(root.first.params, '@{mq-xs}');
+  t.is(root.first.first.selector, '.a');
+});
+
+test('parses interpolation followed by a media feature (#180)', (t) => {
+  const root = parse(
+    '@media @{mq-xs} and (min-width: 5px) { .a { color: red } }',
+  );
+
+  t.is(root.first.params, '@{mq-xs} and (min-width: 5px)');
+});
+
+test('parses multiple interpolations in at-rule params (#180)', (t) => {
+  const root = parse('@media @{a} and @{b} { .a { color: red } }');
+
+  t.is(root.first.params, '@{a} and @{b}');
+});
+
+test('parses interpolation inside at-rule params word (#180)', (t) => {
+  const root = parse(
+    '@media screen and (max-width: @{w}) { .a { color: red } }',
+  );
+
+  t.is(root.first.params, 'screen and (max-width: @{w})');
+});
+
+test('parses a variable in at-rule params (#180)', (t) => {
+  const root = parse('@media @mq-xs { .a { color: red } }');
+
+  t.is(root.first.params, '@mq-xs');
 });
 
 // TODO: interpolation doesn't quite work yet
@@ -80,5 +124,8 @@ test('parses escaping', (t) => {
   t.is(first.selector, '.m_transition (...)');
   t.is(first.first.name, 'props');
   t.is(first.first.value, '~`"@{arguments}".replace(/[[]]/g, \'\')`');
-  t.is(root.nodes[1].first.selector, '& ~ .stock-bar__content .stock-bar__control_pause');
+  t.is(
+    root.nodes[1].first.selector,
+    '& ~ .stock-bar__content .stock-bar__control_pause',
+  );
 });

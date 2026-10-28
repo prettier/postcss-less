@@ -1,6 +1,6 @@
-const test = require('ava');
+import test from 'ava';
 
-const { parse, nodeToString } = require('../../lib');
+import { parse, nodeToString } from '../../lib/index.js';
 
 test('should allow case-insensitive !important (#89)', (t) => {
   const less = 'a{k: v !IMPORTANT;}';
