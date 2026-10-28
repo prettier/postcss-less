@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import test from 'ava';
 import postcss from 'postcss';
 
-import syntax, { parser } from '../lib/index.js';
+import syntax from '../lib/index.js';
 
 const __dirname = import.meta.dirname;
 
@@ -20,7 +20,6 @@ test('should parse LESS integration syntax and generate a source map', async (t)
   );
   const result = await postcss().process(less, {
     map: { annotation: false, inline: false, sourcesContent: true },
-    parser,
     syntax,
   });
 
@@ -38,7 +37,6 @@ test('should parse LESS inline comment syntax and generate a source map', async 
   `;
   const result = await postcss().process(less, {
     map: { annotation: false, inline: false, sourcesContent: true },
-    parser,
     syntax,
   });
 
