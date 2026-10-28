@@ -34,10 +34,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cto.af/wtf8@npm:0.0.6":
-  version: 0.0.6
-  resolution: "@cto.af/wtf8@npm:0.0.6"
-  checksum: 10/c11cac9c5940db5f7ae57d44a93600502f7c7838f37b9eaeafe38a84f5775aa5d9a08d9bfea31344dd0f17fb3ec7332a09a3664027823997811d7d5a0cf05961
+"@cto.af/wtf8@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@cto.af/wtf8@npm:1.0.0"
+  checksum: 10/6d2067f1b323da6b98fdd6243b653611b41f955a3374e3a96cc2e99213ddc4a8aebca0c1b2c4ead357f869e6e317f37baa15c4f6b14574280aaf49d0a1d12175
   languageName: node
   linkType: hard
 
@@ -1073,11 +1073,11 @@ __metadata:
   linkType: hard
 
 "cbor2@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "cbor2@npm:2.4.0"
+  version: 2.4.1
+  resolution: "cbor2@npm:2.4.1"
   dependencies:
-    "@cto.af/wtf8": "npm:0.0.6"
-  checksum: 10/80931e90ec981c735172673d7203362b4782ef5037289bb809f4cb5f0ae6d5fbf74137c2c5357eb95b14dd30efd7eead5771d85c4c8cd17e43bf6738d395a83c
+    "@cto.af/wtf8": "npm:1.0.0"
+  checksum: 10/b32f240498ddf24eaa7ea4d26c56db7d827afdcf2c06d2b321212eab72b83aa19c983d70010603e4a7743830333268d259dd3c88042919c1f3f7f82483e2f2cf
   languageName: node
   linkType: hard
 
@@ -2137,9 +2137,9 @@ __metadata:
   linkType: hard
 
 "ignore@npm:^7.0.5":
-  version: 7.0.13
-  resolution: "ignore@npm:7.0.13"
-  checksum: 10/8206edd6fcb92934ec127ac55f8ffe2069903a2852df6b6744824db723637d74e59b5a7fa7c472d2bfbc29e572a2930c2378995051a5ab22c8954acff5db334c
+  version: 7.0.14
+  resolution: "ignore@npm:7.0.14"
+  checksum: 10/47ed87f5943d538b5320a8aff31e09e5b7a87505fbddf254f86604f222486b0fa36993269acab5697d5b707d336d0c26b8fb24b0adb2ddbea0aa7ce225757458
   languageName: node
   linkType: hard
 
