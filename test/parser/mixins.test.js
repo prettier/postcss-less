@@ -62,7 +62,6 @@ test('without body, no params, no whitepsace', (t) => {
 //   t.is(first.type, 'atrule');
 // });
 
-/* eslint-disable no-multiple-empty-lines */
 test('class and id selectors', (t) => {
   const less = `
     .mixin-class {
@@ -87,7 +86,7 @@ test('class and id selectors', (t) => {
 
   const root = parse(less);
   const {
-    nodes: [first, second, last]
+    nodes: [first, second, last],
   } = root;
 
   t.is(first.first.name, 'a');
