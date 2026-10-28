@@ -4,7 +4,7 @@ import CssSyntaxError from 'postcss/lib/css-syntax-error';
 
 import syntax from '../lib/index.js';
 
-// silence the rediculously verbose "You did not set any plugins, parser, or
+// silence the ridiculously verbose "You did not set any plugins, parser, or
 // stringifier" warnings in PostCSS.
 console.warn = () => {};
 
