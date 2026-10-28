@@ -18,7 +18,7 @@
 
 A [PostCSS] Syntax for parsing [LESS]
 
-_Note: This module requires Node v6.14.4+. `poscss-less` is not a LESS compiler. For compiling LESS, please use the official toolset for LESS._
+_Note: `postcss-less` is not a LESS compiler. For compiling LESS, please use the official toolset for LESS._
 
 ## Install
 
@@ -104,7 +104,7 @@ The AST will contain an `AtRule` node with a `variable: true` property.
 
 _Note: LESS variables are strictly parsed - a colon (`:`) must immediately follow a variable name._
 
-## Stringifying
+## Stringify
 
 To process LESS code without PostCSS transformations, custom stringifier
 should be provided.

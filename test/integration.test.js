@@ -7,7 +7,7 @@
 import test from 'ava';
 import * as cheerio from 'cheerio';
 import isAbsoluteUrl from 'is-absolute-url';
-import urljoin from 'url-join';
+import urlJoin from 'url-join';
 import postcss from 'postcss';
 
 import syntax from '../lib/index.js';
@@ -21,21 +21,21 @@ for (const site of sites) {
     const html = await res.text();
     const $ = cheerio.load(html);
 
-    const hrefs = $('head link[rel=stylesheet]')
+    const stylesheets = $('head link[rel=stylesheet]')
       .filter((index, sheet) => !!sheet.attribs.href)
       .map((index, sheet) => {
         let { href } = sheet.attribs;
 
         if (!isAbsoluteUrl(href)) {
-          href = urljoin(site, href);
+          href = urlJoin(site, href);
         }
 
         return href;
       })
       .get();
 
-    for (const href of hrefs) {
-      const req = await fetch(href);
+    for (const url of stylesheets) {
+      const req = await fetch(url);
       const css = await req.text();
       await postcss().process(css, {
         from: null,

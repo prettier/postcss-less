@@ -14,7 +14,7 @@ test('numeric', (t) => {
   t.is(nodeToString(root), less);
 });
 
-test('@pagexxx like variable but not @page selector', (t) => {
+test('@pageXxx like variable but not @page selector', (t) => {
   let less = '@pageWidth: "test";';
   let root = parse(less);
   let { first } = root;

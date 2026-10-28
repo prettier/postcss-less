@@ -40,7 +40,7 @@ test('without body, no params', (t) => {
   t.is(nodeToString(root), less);
 });
 
-test('without body, no params, no whitepsace', (t) => {
+test('without body, no params, no whitespace', (t) => {
   const less = '.base {.mixin-name}';
   const root = parse(less);
   const { first } = root;

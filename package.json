@@ -20,6 +20,7 @@
     "lint": "run-p --continue-on-error \"lint:*\"",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier . --check",
+    "lint:cspell": "cspell . --gitignore",
     "test": "ava",
     "test-coverage": "c8 yarn test",
     "release": "release-it"
@@ -32,6 +33,7 @@
     "ava": "8.2.0",
     "c8": "12.0.0",
     "cheerio": "1.2.0",
+    "cspell": "10.4.0",
     "eslint": "10.13.0",
     "eslint-config-prettier": "10.1.8",
     "globals": "17.13.0",

@@ -81,7 +81,7 @@ test('malformed filename (#88)', async (t) => {
   t.is(nodeToString(root), less);
 });
 
-test('mmissing semicolon (#88)', async (t) => {
+test('missing semicolon (#88)', async (t) => {
   const less = `
 @import "../assets/font/league-gothic/league-gothic.css"
 
