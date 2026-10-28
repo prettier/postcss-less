@@ -2,9 +2,7 @@
 
 import test from 'ava';
 
-import syntax from '../../lib/index.js';
-
-const { parse } = syntax;
+import { parse } from '../../lib/index.js';
 
 test('parses interpolation', (t) => {
   const root = parse('@{selector}:hover { @{prop}-size: @{color} }');
