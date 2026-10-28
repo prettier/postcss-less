@@ -234,13 +234,16 @@ test('preserves source.input.file when retokenizing inline comments', (t) => {
   }
 
   // The position fix-up in lib/index.js still applies.
-  t.deepEqual(nodes.map((node) => [node.type, node.source.start.line]), [
-    ['rule', 1],
-    ['comment', 2],
-    ['decl', 3],
-    ['rule', 5],
-    ['decl', 5]
-  ]);
+  t.deepEqual(
+    nodes.map((node) => [node.type, node.source.start.line]),
+    [
+      ['rule', 1],
+      ['comment', 2],
+      ['decl', 3],
+      ['rule', 5],
+      ['decl', 5],
+    ],
+  );
 
   t.is(nodeToString(root), less);
 });
