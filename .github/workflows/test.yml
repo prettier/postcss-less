@@ -13,6 +13,13 @@ jobs:
       matrix:
         node_version:
           - ''
+          - '26'
+          - '24'
+          - '22'
+          - '20'
+          - '18'
+          - '16'
+          - '14'
           - '12'
     name: Node.js ${{ matrix.node_version }}
     runs-on: ubuntu-latest
@@ -23,11 +30,15 @@ jobs:
       - name: NPM Rebuild
         run: yarn
 
-      - name: Run unit tests
-        run: yarn ci:coverage
+      - name: Run tests
+        run: yarn test-coverage
 
-      - name: Submit coverage data to codecov.
-        run: bash <(curl -s https://codecov.io/bash)
+      - uses: codecov/codecov-action@v7
+        with:
+          fail_ci_if_error: true
+          disable_search: true
+          files: coverage/lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   lint:
     strategy:
