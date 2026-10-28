@@ -23,10 +23,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "lts/*"
+          node-version: 'lts/*'
 
       - name: Install Dependencies
         run: yarn --immutable
+
+      - name: Clean up
+        run: npm pkg delete scripts devDependencies ava c8 packageManager
 
       - name: Publish to NPM
         run: npm publish
