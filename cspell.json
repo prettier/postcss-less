@@ -1,0 +1,17 @@
+{
+  "version": "0.2",
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/master/cspell.schema.json",
+  "words": [
+    "atrule",
+    "jsonify",
+    "Kniazevych",
+    "Stringifier",
+    "unpadded",
+    "untokenized"
+  ],
+  "ignoreRegExpList": [],
+  "ignorePaths": [
+    "LICENSE",
+    "test/integration/ext.cx.dashboard.less"
+  ]
+}

@@ -127,13 +127,13 @@ test('close empty', (t) => {
 });
 
 test('close inline and block', (t) => {
-  const less = '// batman\n/* cleans the batcave */';
+  const less = '// batman\n/* cleans the bat cave */';
   const root = parse(less);
   const { first, last } = root;
 
   t.truthy(root.nodes.length);
   t.is(first.text, 'batman');
-  t.is(last.text, 'cleans the batcave');
+  t.is(last.text, 'cleans the bat cave');
   t.is(nodeToString(root), less);
 });
 
@@ -224,7 +224,7 @@ test('handles single quotes in comments (#163)', (t) => {
   t.is(nodeToString(root), less);
 });
 
-test('preserves source.input.file when retokenizing inline comments', (t) => {
+test('preserves source.input.file when re-tokenizing inline comments', (t) => {
   const from = '/repro.less';
   // The quote in the inline comment, plus a later quote, makes the tokenizer run
   // the string past the newline, which sends `isInlineComment` down the path that
