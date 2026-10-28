@@ -9,10 +9,10 @@
   "maintainer": "Andrew Powell <andrew@shellscape.org>",
   "homepage": "https://github.com/prettier/postcss-less",
   "bugs": "https://github.com/prettier/postcss-less/issues",
-  "main": "lib/index.js",
   "engines": {
-    "node": ">=12"
+    "node": ">=22"
   },
+  "exports": "./lib/index.js",
   "scripts": {
     "fix": "run-p --continue-on-error \"fix:*\"",
     "fix:eslint": "yarn lint:eslint --fix",
