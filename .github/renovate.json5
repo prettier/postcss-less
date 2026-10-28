@@ -19,14 +19,6 @@
       matchPackageNames: ["prettier"],
     },
     {
-      groupName: "Rollup",
-      matchManagers: ["rollup", "@rollup/*"],
-    },
-    {
-      groupName: "ESlint",
-      matchManagers: ["eslint", "eslint-config-*", "eslint-plugin-*"],
-    },
-    {
       matchDepTypes: ["peerDependencies"],
       rangeStrategy: "widen",
     },
