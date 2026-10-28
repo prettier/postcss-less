@@ -42,7 +42,7 @@
     "postcss-parser-tests": "8.3.5",
     "prettier": "^3.9.10",
     "prettier-plugin-package": "^2.0.0",
-    "url-join": "4.0.0"
+    "url-join": "6.0.0"
   },
   "peerDependencies": {
     "postcss": "^8.3.5"
