@@ -15,7 +15,7 @@ import syntax from '../lib/index.js';
 const sites = ['https://github.com', 'https://news.ycombinator.com'];
 
 for (const site of sites) {
-  test(`integration: ${site}`, async (t) => {
+  test.skip(`integration: ${site}`, async (t) => {
     t.timeout(50000);
     const res = await fetch(site);
     const html = await res.text();

@@ -37,8 +37,9 @@
     "is-absolute-url": "5.0.0",
     "less": "4.9.1",
     "npm-run-all2": "9.0.4",
-    "postcss": "8.3.5",
-    "postcss-parser-tests": "8.3.5",
+    "outdent": "0.8.0",
+    "postcss": "8.5.32",
+    "postcss-parser-tests": "8.10.0",
     "prettier": "3.9.10",
     "url-join": "6.0.0"
   },
