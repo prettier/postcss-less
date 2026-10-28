@@ -764,7 +764,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colorette@npm:^1.2.1, colorette@npm:^1.2.2":
+"colorette@npm:^1.2.1":
   version: 1.4.0
   resolution: "colorette@npm:1.4.0"
   checksum: 10/c8d6c8c3ef5a99acfc3dd9a68f48019f1479ec347551387e4a1762e40f69e98ce19d4dc321ffb4919d1f28a7bdc90c39d4e9a901f4c474fd2124ad93a00c0454
@@ -1838,7 +1838,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.1.23":
+"nanoid@npm:^3.3.16":
   version: 3.3.20
   resolution: "nanoid@npm:3.3.20"
   bin:
@@ -2059,6 +2059,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"picocolors@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "picocolors@npm:1.1.1"
+  checksum: 10/e1cf46bf84886c79055fdfa9dcb3e4711ad259949e3565154b004b260cd356c5d54b31a1437ce9782624bf766272fe6b0154f5f0c744fb7af5d454d2b60db045
+  languageName: node
+  linkType: hard
+
 "picomatch@npm:^2.3.1":
   version: 2.3.2
   resolution: "picomatch@npm:2.3.2"
@@ -2113,7 +2120,7 @@ __metadata:
     less: "npm:4.1.1"
     node-fetch: "npm:2.6.7"
     npm-run-all2: "npm:9.0.4"
-    postcss: "npm:8.3.5"
+    postcss: "npm:8.5.23"
     postcss-parser-tests: "npm:8.3.5"
     prettier: "npm:3.9.10"
     prettier-plugin-package: "npm:2.0.0"
@@ -2134,14 +2141,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.3.5":
-  version: 8.3.5
-  resolution: "postcss@npm:8.3.5"
+"postcss@npm:8.5.23":
+  version: 8.5.23
+  resolution: "postcss@npm:8.5.23"
   dependencies:
-    colorette: "npm:^1.2.2"
-    nanoid: "npm:^3.1.23"
-    source-map-js: "npm:^0.6.2"
-  checksum: 10/2c958fe6b07edc1ff483131e677ce4b14d313a5045d7d5111446c911659aa0bee5390a9b717f20322cb33c7f55c42f784a5b7813e6cde29c769dc230633d0890
+    nanoid: "npm:^3.3.16"
+    picocolors: "npm:^1.1.1"
+    source-map-js: "npm:^1.2.1"
+  checksum: 10/8387f421216696bf62a13e5a270e9fefdafc81e196903c0f8d7653f8bab315367cc2261b3c22cf197e492cb075f31bdfc07fd9c3be1cb165ff3cabe14c5a039a
   languageName: node
   linkType: hard
 
@@ -2354,10 +2361,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-js@npm:^0.6.2":
-  version: 0.6.2
-  resolution: "source-map-js@npm:0.6.2"
-  checksum: 10/7dd3805d964bca9bd7c5fa7e583679bb16b4bc4bd56d59c9b90bc98d30f7ee0a43762686192a34255dedf9eb9deb1b9278f0947976528059827cb9918fe80056
+"source-map-js@npm:^1.2.1":
+  version: 1.2.2
+  resolution: "source-map-js@npm:1.2.2"
+  checksum: 10/4807c894bb6280c8b84886159b96080e3996f42c6e8015e647881edfd4f955f6024ceebb8bb40d33ce8b106e24b2e29c133575e1c60c01c8aae57a05fdf17761
   languageName: node
   linkType: hard
 
