@@ -4,19 +4,19 @@
 // const { readFileSync } = require('fs');
 // const { join } = require('path');
 
-const test = require('ava');
-const cheerio = require('cheerio');
-const isAbsoluteUrl = require('is-absolute-url');
-const fetch = require('node-fetch');
-const postcss = require('postcss');
-const urljoin = require('url-join');
+import test from 'ava';
+import cheerio from 'cheerio';
+import isAbsoluteUrl from 'is-absolute-url';
+import urljoin from 'url-join';
+import postcss from 'postcss';
 
-const syntax = require('../lib');
+import syntax from '../lib/index.js';
 
 const sites = ['https://github.com', 'https://news.ycombinator.com'];
 
 for (const site of sites) {
   test(`integration: ${site}`, async (t) => {
+    t.timeout(50000);
     const res = await fetch(site);
     const html = await res.text();
     const $ = cheerio.load(html);
@@ -37,11 +37,10 @@ for (const site of sites) {
     for (const href of hrefs) {
       const req = await fetch(href);
       const css = await req.text();
-
       await postcss().process(css, {
-        parser: syntax.parse,
+        from: null,
         map: { annotation: false },
-        from: null
+        parser: syntax.parse,
       });
     }
 

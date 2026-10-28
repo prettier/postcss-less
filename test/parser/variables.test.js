@@ -1,7 +1,7 @@
-const test = require('ava');
-const AtRule = require('postcss/lib/at-rule');
+import test from 'ava';
+import AtRule from 'postcss/lib/at-rule';
 
-const { parse, nodeToString } = require('../../lib');
+import { parse, nodeToString } from '../../lib/index.js';
 
 test('numeric', (t) => {
   const less = '@var: 1;';

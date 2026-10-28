@@ -1,11 +1,19 @@
-const test = require('ava');
-const { eachTest, jsonify } = require('postcss-parser-tests');
+import { createRequire } from 'node:module';
 
-const { nodeToString, parse, stringify } = require('../../lib');
+import test from 'ava';
+
+import { parse, nodeToString, stringify } from '../../lib/index.js';
+
+const require = createRequire(import.meta.url);
+const { eachTest, jsonify } = require('postcss-parser-tests');
 
 eachTest((name, code, json) => {
   // Skip comments.css, because we have an extended Comment node
-  if (name === 'comments.css' || name === 'atrule-no-space.css' || name === 'inside.css') {
+  if (
+    name === 'comments.css' ||
+    name === 'atrule-no-space.css' ||
+    name === 'inside.css'
+  ) {
     return;
   }
 
@@ -17,7 +25,7 @@ eachTest((name, code, json) => {
   });
 
   if (name === 'bom.css') {
-    return; // eslint-disable-line no-useless-return
+    return;
   }
 
   test(`stringifies ${name}`, (t) => {

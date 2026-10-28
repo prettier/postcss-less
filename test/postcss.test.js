@@ -1,18 +1,16 @@
-const test = require('ava');
-const postcss = require('postcss');
-const CssSyntaxError = require('postcss/lib/css-syntax-error');
+import test from 'ava';
+import postcss from 'postcss';
+import CssSyntaxError from 'postcss/lib/css-syntax-error';
 
-const syntax = require('../lib');
-
-const { parser } = syntax;
+import syntax from '../lib/index.js';
 
 // silence the rediculously verbose "You did not set any plugins, parser, or
 // stringifier" warnings in PostCSS.
-console.warn = () => {}; // eslint-disable-line no-console
+console.warn = () => {};
 
 test('should process LESS syntax', async (t) => {
   const less = 'a { b {} }';
-  const result = await postcss().process(less, { syntax, parser });
+  const result = await postcss().process(less, { syntax });
 
   t.truthy(result);
   t.is(result.css, less);

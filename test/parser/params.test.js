@@ -1,6 +1,6 @@
-const test = require('ava');
+import test from 'ava';
 
-const { parse, nodeToString } = require('../../lib');
+import { parse, nodeToString } from '../../lib/index.js';
 
 test('should not assign parameters for pseudo-selectors (#56)', (t) => {
   const less = '.test2:not(.test3) {}';
