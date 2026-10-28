@@ -40,7 +40,7 @@ for (const site of sites) {
       await postcss().process(css, {
         from: null,
         map: { annotation: false },
-        parser: syntax.parse
+        parser: syntax.parse,
       });
     }
 

@@ -27,7 +27,7 @@ eachTest((name, code, json) => {
   });
 
   if (name === 'bom.css') {
-    return; // eslint-disable-line no-useless-return
+    return;
   }
 
   test(`stringifies ${name}`, (t) => {

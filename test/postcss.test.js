@@ -8,7 +8,7 @@ const { parser } = syntax;
 
 // silence the rediculously verbose "You did not set any plugins, parser, or
 // stringifier" warnings in PostCSS.
-console.warn = () => {}; // eslint-disable-line no-console
+console.warn = () => {};
 
 test('should process LESS syntax', async (t) => {
   const less = 'a { b {} }';
