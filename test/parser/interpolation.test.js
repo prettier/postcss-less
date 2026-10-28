@@ -41,6 +41,50 @@ test('parses non-interpolation', (t) => {
   t.is(root.first.selector, '\\@');
 });
 
+test('parses interpolation in at-rule params (#180)', (t) => {
+  const root = parse('@media @{mq-xs} { .a { color: red } }');
+
+  t.is(root.first.type, 'atrule');
+  t.is(root.first.name, 'media');
+  t.is(root.first.params, '@{mq-xs}');
+  t.is(root.first.first.selector, '.a');
+});
+
+test('parses interpolation in at-rule params without space before bracket (#180)', (t) => {
+  const root = parse('@media @{mq-xs}{ .a { color: red } }');
+
+  t.is(root.first.params, '@{mq-xs}');
+  t.is(root.first.first.selector, '.a');
+});
+
+test('parses interpolation followed by a media feature (#180)', (t) => {
+  const root = parse(
+    '@media @{mq-xs} and (min-width: 5px) { .a { color: red } }',
+  );
+
+  t.is(root.first.params, '@{mq-xs} and (min-width: 5px)');
+});
+
+test('parses multiple interpolations in at-rule params (#180)', (t) => {
+  const root = parse('@media @{a} and @{b} { .a { color: red } }');
+
+  t.is(root.first.params, '@{a} and @{b}');
+});
+
+test('parses interpolation inside at-rule params word (#180)', (t) => {
+  const root = parse(
+    '@media screen and (max-width: @{w}) { .a { color: red } }',
+  );
+
+  t.is(root.first.params, 'screen and (max-width: @{w})');
+});
+
+test('parses a variable in at-rule params (#180)', (t) => {
+  const root = parse('@media @mq-xs { .a { color: red } }');
+
+  t.is(root.first.params, '@mq-xs');
+});
+
 // TODO: interpolation doesn't quite work yet
 test('interpolation', (t) => {
   const root = parse('@{selector}:hover { @{prop}-size: @{color} }');
