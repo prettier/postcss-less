@@ -470,9 +470,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ava@npm:8.1.1":
-  version: 8.1.1
-  resolution: "ava@npm:8.1.1"
+"ava@npm:8.2.0":
+  version: 8.2.0
+  resolution: "ava@npm:8.2.0"
   dependencies:
     "@vercel/nft": "npm:^1.11.0"
     acorn: "npm:^8.19.0"
@@ -521,7 +521,7 @@ __metadata:
       optional: true
   bin:
     ava: ./entrypoints/cli.js
-  checksum: 10/d177700635bc2b65d7c60f420d32e5c89430d849318f807beaca00ed799bb9aea53567fef805ff26b7b904eeb32238e2437cba1180d1ad4999c81eb7d4801d50
+  checksum: 10/cc361139b75377a9b442282b966eff248278f2b48ef9e46dae9e662c32b47110918f24445c693b160d79477e370ce9c7a743dfedcb45f70cac30950fb340c887
   languageName: node
   linkType: hard
 
@@ -1867,20 +1867,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.7":
-  version: 2.6.7
-  resolution: "node-fetch@npm:2.6.7"
-  dependencies:
-    whatwg-url: "npm:^5.0.0"
-  peerDependencies:
-    encoding: ^0.1.0
-  peerDependenciesMeta:
-    encoding:
-      optional: true
-  checksum: 10/4bc9245383db92c35601a798c9a992fdf38d99920ceac11e0e6512ef3014d188b3807ccb060bc6c4bdb57a145030c73f5b5fd6730f665979f9264bc43ca3afea
-  languageName: node
-  linkType: hard
-
 "node-fetch@npm:^2.6.7":
   version: 2.7.0
   resolution: "node-fetch@npm:2.7.0"
@@ -2103,7 +2089,7 @@ __metadata:
   resolution: "postcss-less@workspace:."
   dependencies:
     "@eslint/js": "npm:10.0.1"
-    ava: "npm:8.1.1"
+    ava: "npm:8.2.0"
     c8: "npm:12.0.0"
     cheerio: "npm:1.0.0-rc.10"
     eslint: "npm:10.13.0"
@@ -2111,12 +2097,10 @@ __metadata:
     globals: "npm:17.13.0"
     is-absolute-url: "npm:5.0.0"
     less: "npm:4.1.1"
-    node-fetch: "npm:2.6.7"
     npm-run-all2: "npm:9.0.4"
     postcss: "npm:8.3.5"
     postcss-parser-tests: "npm:8.3.5"
     prettier: "npm:3.9.10"
-    prettier-plugin-package: "npm:2.0.0"
     url-join: "npm:6.0.0"
   peerDependencies:
     postcss: ^8.3.5
@@ -2149,15 +2133,6 @@ __metadata:
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
   checksum: 10/0b9d2c76801ca652a7f64892dd37b7e3fab149a37d2424920099bf894acccc62abb4424af2155ab36dea8744843060a2d8ddc983518d0b1e22265a22324b72ed
-  languageName: node
-  linkType: hard
-
-"prettier-plugin-package@npm:2.0.0":
-  version: 2.0.0
-  resolution: "prettier-plugin-package@npm:2.0.0"
-  peerDependencies:
-    prettier: ^3.0.0
-  checksum: 10/b308163fd93d281f3555ca24b8dc2e678303fadc4cf908c32817d059f229cd7b671e9da7cecb1ede67c5b7207feb37dd39da9ee36aaa82b1f1db189e29cb3f2b
   languageName: node
   linkType: hard
 
