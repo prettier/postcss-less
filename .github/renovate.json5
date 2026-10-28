@@ -1,28 +1,28 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   dependencyDashboardApproval: true,
-  postUpdateOptions: ["yarnDedupeHighest"],
+  postUpdateOptions: ['yarnDedupeHighest'],
   lockFileMaintenance: { enabled: true },
-  extends: [":pinDevDependencies"],
-  rangeStrategy: "bump",
+  extends: [':pinDevDependencies'],
+  rangeStrategy: 'bump',
   packageRules: [
     {
-      groupName: "non-major dev-dependencies",
-      matchDepTypes: ["devDependencies"],
-      matchUpdateTypes: ["minor", "patch"],
+      groupName: 'non-major dev-dependencies',
+      matchDepTypes: ['devDependencies'],
+      matchUpdateTypes: ['minor', 'patch'],
     },
     {
-      groupName: "GitHub Actions",
-      matchManagers: ["github-actions"],
+      groupName: 'GitHub Actions',
+      matchManagers: ['github-actions'],
     },
     {
-      groupName: "Prettier",
-      matchPackageNames: ["prettier"],
+      groupName: 'Prettier',
+      matchPackageNames: ['prettier'],
     },
     {
-      matchDepTypes: ["peerDependencies"],
-      rangeStrategy: "widen",
+      matchDepTypes: ['peerDependencies'],
+      rangeStrategy: 'widen',
     },
   ],
-  ignoreDeps: ["node"],
+  ignoreDeps: ['node'],
 }
