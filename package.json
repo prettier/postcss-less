@@ -36,7 +36,7 @@
     "globals": "^17.13.0",
     "is-absolute-url": "3.0.0",
     "less": "4.1.1",
-    "node-fetch": "2.6.1",
+    "node-fetch": "2.6.7",
     "npm-run-all2": "^9.0.4",
     "postcss": "8.3.5",
     "postcss-parser-tests": "8.3.5",

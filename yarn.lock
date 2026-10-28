@@ -1867,10 +1867,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.1":
-  version: 2.6.1
-  resolution: "node-fetch@npm:2.6.1"
-  checksum: 10/0b54e56681a99e1b511f8e94dc56b971104834c99c0368cdf5a9e43b3355d77e8aa92842602cf2c08e60654c32ae439d84946eccb38427e6dc2e9d7d90fc787c
+"node-fetch@npm:2.6.7":
+  version: 2.6.7
+  resolution: "node-fetch@npm:2.6.7"
+  dependencies:
+    whatwg-url: "npm:^5.0.0"
+  peerDependencies:
+    encoding: ^0.1.0
+  peerDependenciesMeta:
+    encoding:
+      optional: true
+  checksum: 10/4bc9245383db92c35601a798c9a992fdf38d99920ceac11e0e6512ef3014d188b3807ccb060bc6c4bdb57a145030c73f5b5fd6730f665979f9264bc43ca3afea
   languageName: node
   linkType: hard
 
@@ -2104,7 +2111,7 @@ __metadata:
     globals: "npm:^17.13.0"
     is-absolute-url: "npm:3.0.0"
     less: "npm:4.1.1"
-    node-fetch: "npm:2.6.1"
+    node-fetch: "npm:2.6.7"
     npm-run-all2: "npm:^9.0.4"
     postcss: "npm:8.3.5"
     postcss-parser-tests: "npm:8.3.5"
