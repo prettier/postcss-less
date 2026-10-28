@@ -1,11 +1,7 @@
-import { createRequire } from 'node:module';
-
 import test from 'ava';
+import { eachTest, jsonify } from 'postcss-parser-tests';
 
 import { parse, nodeToString, stringify } from '../../lib/index.js';
-
-const require = createRequire(import.meta.url);
-const { eachTest, jsonify } = require('postcss-parser-tests');
 
 eachTest((name, code, json) => {
   // Skip comments.css, because we have an extended Comment node
@@ -21,7 +17,7 @@ eachTest((name, code, json) => {
     const root = parse(code, { from: name });
     const parsed = jsonify(root);
 
-    t.is(parsed, json);
+    t.deepEqual(parsed, json);
   });
 
   if (name === 'bom.css') {
