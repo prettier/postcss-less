@@ -338,3 +338,17 @@ test('support mixin starts with a digit', (t) => {
   t.is(last.selector, '.3D(...)');
   t.is(nodeToString(root), less);
 });
+
+test('support mixin starts with a backslash', (t) => {
+  const less = `
+    .\\123();
+    .\\x();
+  `;
+
+  const root = parse(less);
+  const { first, last } = root;
+
+  t.is(first.name, '\\123');
+  t.is(last.name, '\\x');
+  t.is(nodeToString(root), less);
+});
