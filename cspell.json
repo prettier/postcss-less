@@ -3,6 +3,7 @@
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/master/cspell.schema.json",
   "words": [
     "atrule",
+    "interp",
     "jsonify",
     "Kniazevych",
     "Stringifier",
@@ -10,5 +11,8 @@
     "untokenized"
   ],
   "ignoreRegExpList": [],
-  "ignorePaths": ["LICENSE", "test/integration/ext.cx.dashboard.less"]
+  "ignorePaths": [
+    "LICENSE",
+    "test/integration/ext.cx.dashboard.less"
+  ]
 }

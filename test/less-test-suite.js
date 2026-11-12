@@ -3,7 +3,6 @@ import { parse } from '../lib/index.js';
 import lessTestSuite from 'less-test-suite';
 
 const invalid = new Set(['tests-unit/import/import/invalid-css.less']);
-
 const failingTests = new Set([
   'tests-unit/property-accessors/property-accessors.less',
   'tests-unit/plugin/plugin.less',
