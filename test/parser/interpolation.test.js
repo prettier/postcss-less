@@ -41,6 +41,7 @@ test('parses lookup interpolation in selectors', (t) => {
     '@{sizes[ name ]}-large',
     '#@{sizes[nested][@key]}',
     '.@{sizes[name]}-@{other[value]}',
+    '.@{sizes[name]}[data-value="large"]',
   ]) {
     const less = `${selector} { color: red }`;
     const root = parse(less);
