@@ -2,7 +2,7 @@
 
 import test from 'ava';
 
-import { parse } from '../../lib/index.js';
+import { nodeToString, parse } from '../../lib/index.js';
 
 test('parses interpolation', (t) => {
   const root = parse('@{selector}:hover { @{prop}-size: @{color} }');
@@ -33,6 +33,33 @@ test('parses interpolation inside word', (t) => {
   const root = parse('.@{class} {}');
 
   t.is(root.first.selector, '.@{class}');
+});
+
+test('parses lookup interpolation in selectors', (t) => {
+  for (const selector of [
+    '.@{sizes[name]}',
+    '@{sizes[ name ]}-large',
+    '#@{sizes[nested][@key]}',
+    '.@{sizes[name]}-@{other[value]}',
+    '.@{sizes[name]}[data-value="large"]',
+  ]) {
+    const less = `${selector} { color: red }`;
+    const root = parse(less);
+
+    t.is(root.first.type, 'rule');
+    t.is(root.first.selector, selector);
+    t.is(root.first.first.value, 'red');
+    t.is(nodeToString(root), less);
+  }
+});
+
+test('parses lookup interpolation in at-rule params', (t) => {
+  const less = '@media @{sizes[name]} { .a { color: red } }';
+  const root = parse(less);
+
+  t.is(root.first.params, '@{sizes[name]}');
+  t.is(root.first.first.selector, '.a');
+  t.is(nodeToString(root), less);
 });
 
 test('parses non-interpolation', (t) => {
