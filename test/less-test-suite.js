@@ -10,7 +10,6 @@ const failingTests = new Set([
   'tests-unit/parser-property-interp/parser-property-interp.less',
   'tests-unit/mixins-interpolated/mixins-interpolated.less',
   'tests-unit/functions/functions.less',
-  'tests-unit/extract-and-length/extract-and-length.less',
   'tests-unit/css-escapes/css-escapes.less',
 ]);
 

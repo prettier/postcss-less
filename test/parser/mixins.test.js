@@ -324,3 +324,17 @@ test('mixin parameters with multiple parens', (t) => {
   t.is(last.selector, '.two');
   t.is(nodeToString(root), less);
 });
+
+test('support mixin starts with a digit', (t) => {
+  const less = `
+    .3D(@a, @b);
+    .3D(...) {}
+  `;
+
+  const root = parse(less);
+  const { first, last } = root;
+
+  t.is(first.name, '3D');
+  t.is(last.selector, '.3D(...)');
+  t.is(nodeToString(root), less);
+});
