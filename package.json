@@ -39,6 +39,7 @@
     "globals": "17.13.0",
     "is-absolute-url": "5.0.0",
     "less": "4.9.1",
+    "less-test-suite": "0.0.2",
     "npm-run-all2": "9.0.4",
     "outdent": "0.8.0",
     "postcss": "8.5.32",

@@ -3233,6 +3233,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"less-test-suite@npm:0.0.2":
+  version: 0.0.2
+  resolution: "less-test-suite@npm:0.0.2"
+  checksum: 10/42567def91cc13aa73ed5e3d604f97919c342b6de2943ff63d52f3379648436ee2f3f30237c8d890275dfd8b85335b1b0c22853b80066ba761966f6060ec61e8
+  languageName: node
+  linkType: hard
+
 "less@npm:4.9.1":
   version: 4.9.1
   resolution: "less@npm:4.9.1"
@@ -3935,6 +3942,7 @@ __metadata:
     globals: "npm:17.13.0"
     is-absolute-url: "npm:5.0.0"
     less: "npm:4.9.1"
+    less-test-suite: "npm:0.0.2"
     npm-run-all2: "npm:9.0.4"
     outdent: "npm:0.8.0"
     postcss: "npm:8.5.32"
