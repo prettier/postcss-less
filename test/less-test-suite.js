@@ -1,7 +1,6 @@
 import test from 'ava';
 import { parse } from '../lib/index.js';
 import lessTestSuite from 'less-test-suite';
-import less from 'less';
 
 const invalid = new Set(['tests-unit/import/import/invalid-css.less']);
 
