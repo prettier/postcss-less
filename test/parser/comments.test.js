@@ -234,7 +234,7 @@ test.only('Should have the same input in every node', (t) => {
 
   t.is(input.css, code);
 
-  // We replace input when there are quotes in comment, but we should restore after parsing
+  // Make sure input doesn't change after parsing
   root.walk((node) => {
     t.is(node.source.input, input);
   });
