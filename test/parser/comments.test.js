@@ -224,6 +224,22 @@ test('handles single quotes in comments (#163)', (t) => {
   t.is(nodeToString(root), less);
 });
 
+test('Should have the same input in every node', (t) => {
+  const code = outdent`
+    // "comment
+    a { content: "value"; color: red !important; }
+  `;
+  const root = parse(code);
+  const input = root.source.input;
+
+  t.is(input.css, code);
+
+  // Make sure input doesn't change after parsing
+  root.walk((node) => {
+    t.is(node.source.input, input);
+  });
+});
+
 test('preserves source.input.file when re-tokenizing inline comments', (t) => {
   const from = '/repro.less';
   // The quote in the inline comment, plus a later quote, makes the tokenizer run
