@@ -224,7 +224,7 @@ test('handles single quotes in comments (#163)', (t) => {
   t.is(nodeToString(root), less);
 });
 
-test.only('Should have the same input in every node', (t) => {
+test('Should have the same input in every node', (t) => {
   const code = outdent`
     // "comment
     a { content: "value"; color: red !important; }
