@@ -36,6 +36,7 @@
     "cspell": "10.4.0",
     "eslint": "10.13.0",
     "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-unicorn": "79.0.0",
     "globals": "17.13.0",
     "is-absolute-url": "5.0.0",
     "less": "4.9.1",
