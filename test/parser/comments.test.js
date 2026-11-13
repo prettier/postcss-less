@@ -1,8 +1,12 @@
 import test from 'ava';
 import Comment from 'postcss/lib/comment';
+import Input from 'postcss/lib/input';
+import Parser from 'postcss/lib/parser';
 import { outdent } from 'outdent';
 
 import { parse, nodeToString } from '../../lib/index.js';
+import { LessParser } from '../../lib/LessParser.js';
+import { withInlineComments } from '../../lib/nodes/inline-comment.js';
 
 test('inline comment', (t) => {
   const less = '// batman';
@@ -64,6 +68,24 @@ test('inline comments with quotes in selectors', (t) => {
     t.is(root.first.first.value, value);
     t.is(nodeToString(root), less);
   }
+});
+
+test('selector comments are handled without dollar interpolation', (t) => {
+  class ParserWithoutDollarInterpolation extends LessParser {
+    other(token) {
+      withInlineComments(this, token, (start) => {
+        Parser.prototype.other.call(this, start);
+      });
+    }
+  }
+
+  const less = 'a // "\n b // \'\n { color: red }';
+  const parser = new ParserWithoutDollarInterpolation(new Input(less));
+  parser.parse();
+
+  t.is(parser.root.first.selector, 'a // "\n b // \'');
+  t.is(parser.root.first.first.value, 'red');
+  t.is(nodeToString(parser.root), less);
 });
 
 test('unclosed strings in selectors still throw', (t) => {
