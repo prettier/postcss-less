@@ -4,9 +4,7 @@ import lessTestSuite from 'less-test-suite';
 
 const invalid = new Set(['tests-unit/import/import/invalid-css.less']);
 const failingTests = new Set([
-  'tests-unit/property-accessors/property-accessors.less',
   'tests-unit/permissive-parse/permissive-parse.less',
-  'tests-unit/parser-property-interp/parser-property-interp.less',
 ]);
 
 for (const { name, input } of lessTestSuite) {

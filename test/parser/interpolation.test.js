@@ -3,6 +3,7 @@
 import test from 'ava';
 
 import { nodeToString, parse } from '../../lib/index.js';
+import { outdent } from 'outdent';
 
 test('parses interpolation', (t) => {
   const root = parse('@{selector}:hover { @{prop}-size: @{color} }');
@@ -155,4 +156,28 @@ test('parses escaping', (t) => {
     root.nodes[1].first.selector,
     '& ~ .stock-bar__content .stock-bar__control_pause',
   );
+});
+
+test('support props', (t) => {
+  // https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/property-accessors/property-accessors.less#L56-L59
+  // https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/parser-property-interp/parser-property-interp.less#L12-L26
+  const code = outdent`
+    a {
+      \${prop1}: #FF0000;  // not sure why you'd want to do this, but ok
+      \${prop-name}: red;
+      border-\${prop-name}-width: 2px;
+      *-z-\${prop-name}: 1px dashed blue;
+      \${my}-\${prop-name}-\${value}: green;
+    }
+  `;
+
+  const root = parse(code);
+  const nodes = root.first.nodes.filter((node) => node.type !== 'comment');
+  t.is(nodes.length, 5);
+  t.is(nodes[0].prop, '${prop1}');
+  t.is(nodes[1].prop, '${prop-name}');
+  t.is(nodes[2].prop, 'border-${prop-name}-width');
+  t.is(nodes[3].prop, '-z-${prop-name}');
+  t.is(nodes[4].prop, '${my}-${prop-name}-${value}');
+  t.is(nodeToString(root), code);
 });
