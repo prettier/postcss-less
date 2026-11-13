@@ -1,6 +1,7 @@
 import test from 'ava';
 
 import { parse, nodeToString } from '../../lib/index.js';
+import { outdent } from 'outdent';
 
 test('basic', (t) => {
   for (const code of [
@@ -10,12 +11,17 @@ test('basic', (t) => {
     'a {store("bird");}',
     'test-atrule("@charset"; "utf-8");',
     'test-atrule("@arbitrary"; "value after ()");',
+    outdent`
+      #if {
+        if((false), {g: 7}); /* results in void */
+      }
+    `,
+    "e('/* anything to unquote */');",
   ]) {
     let root;
     t.notThrows(() => {
       root = parse(code);
     });
-    // console.log(root.nodes[0].nodes[0]);
     t.is(nodeToString(root), code);
   }
 });
