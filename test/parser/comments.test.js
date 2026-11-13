@@ -47,6 +47,51 @@ test('inline comment without leading space', (t) => {
   t.is(nodeToString(root), less);
 });
 
+test('inline comments with quotes in selectors', (t) => {
+  for (const [selector, newline, value] of [
+    ['a // comment"', '\n', 'red'],
+    ["a // comment' { ; }", '\r\n', 'red'],
+    ['a // comment"', '\n', '"value"'],
+    ['a// comment"', '\n', 'red'],
+    ['a //* comment"', '\n', 'red'],
+    ['a//* comment"', '\n', 'red'],
+  ]) {
+    const less = `${selector}${newline}{ content: ${value}; }`;
+    const root = parse(less);
+
+    t.is(root.first.type, 'rule');
+    t.is(root.first.selector, selector);
+    t.is(root.first.first.value, value);
+    t.is(nodeToString(root), less);
+  }
+});
+
+test('unclosed strings in selectors still throw', (t) => {
+  t.throws(() => parse('a[title="value] {}'), { message: /Unclosed string/ });
+  const less = 'a // "\n{ content: "value }';
+  const error = t.throws(() => parse(less), { message: /Unclosed string/ });
+  t.is(error.input.source, less);
+});
+
+test('preserves source positions after a selector comment', (t) => {
+  const less = 'a // "\n{}\nb { color: red }';
+  const root = parse(less);
+
+  t.is(root.last.source.input, root.source.input);
+  t.is(root.last.source.start.line, 3);
+  t.is(root.last.first.source.start.line, 3);
+  t.is(nodeToString(root), less);
+});
+
+test('inline comments do not interrupt selector interpolation', (t) => {
+  const less = 'a-${name} // "{;}\n b { color: red }';
+  const root = parse(less);
+
+  t.is(root.first.selector, 'a-${name} // "{;}\n b');
+  t.is(root.first.first.value, 'red');
+  t.is(nodeToString(root), less);
+});
+
 test('inline comment with unclosed characters', (t) => {
   const less = `// unclosed ' test { test ( test /*`;
   const root = parse(less);
