@@ -1,20 +1,26 @@
 import test from 'ava';
-import { parse } from '../lib/index.js';
+import { parse, nodeToString } from '../lib/index.js';
 import lessTestSuite from 'less-test-suite';
 
-const invalid = new Set(['tests-unit/import/import/invalid-css.less']);
-const failingTests = new Set([
+const skipTests = new Set([
+  'tests-unit/import/import/invalid-css.less',
   'tests-unit/permissive-parse/permissive-parse.less',
 ]);
+const failingTests = new Set([]);
 
 for (const { name, input } of lessTestSuite) {
-  if (invalid.has(name)) {
+  if (skipTests.has(name)) {
     continue;
   }
 
   const expectFailure = failingTests.has(name);
 
   (expectFailure ? test.failing : test)(name, (t) => {
-    t.notThrows(() => parse(input));
+    let root;
+    t.notThrows(() => {
+      root = parse(input);
+    });
+
+    t.is(nodeToString(root), input);
   });
 }
