@@ -5,23 +5,57 @@ import AtRule from 'postcss/lib/at-rule';
 import { parse } from '../../lib/index.js';
 import { nodeToString } from '../helpers/node-to-string.js';
 
-test('preserves at-rules with inline comments before a colon', (t) => {
-  for (const [less, params] of [
-    ['@foo // comment\n: red;', '// comment\n: red'],
-    ['@foo // first\n // second\n: red;', '// first\n // second\n: red'],
-    ["@foo // it's; { not closed\n: red;", "// it's; { not closed\n: red"],
+test('parses variables with whitespace and comments around the colon', (t) => {
+  for (const [less, afterName, value] of [
+    ['@foo:red;', ':', 'red'],
+    ['@foo :red;', ' :', 'red'],
+    ['@foo : red;', ' : ', 'red'],
+    ['@foo/* before */:red;', '/* before */:', 'red'],
+    [
+      '@foo /* first */ /* second */ : /* after */ red;',
+      ' /* first */ /* second */ : ',
+      '/* after */ red',
+    ],
+    ['@foo // comment\n: red;', ' // comment\n: ', 'red'],
+    ['@foo // first\n // second\n: red;', ' // first\n // second\n: ', 'red'],
+    ['@foo/* before */: // after\nred;', '/* before */: ', '// after\nred'],
+    ["@foo // it's; { not closed\n: red;", " // it's; { not closed\n: ", 'red'],
+    ['@foo:/* after */red;', ':', '/* after */red'],
   ]) {
     const root = parse(less);
     const node = root.first;
 
     t.is(node.type, 'atrule');
     t.is(node.name, 'foo');
-    t.is(node.variable, undefined);
-    t.is(node.value, undefined);
-    t.is(node.params, params);
-    t.deepEqual(node.raws, { before: '', between: '', afterName: ' ' });
+    t.true(node.variable);
+    t.is(node.value, value);
+    t.is(node.params, value);
+    t.is(node.raws.afterName, afterName);
     t.is(nodeToString(root), less);
+
+    node.value = 'changed';
+    t.is(nodeToString(root), `@foo${afterName}changed;`);
   }
+});
+
+test('parses nested and unterminated variable declarations', (t) => {
+  const less = '.rule {\n  @foo /* note */ :red;\n  color: @foo;\n}';
+  const root = parse(less);
+  const variable = root.first.first;
+
+  t.true(variable.variable);
+  t.is(variable.name, 'foo');
+  t.is(variable.value, 'red');
+  t.is(variable.source.start.line, 2);
+  t.is(variable.source.start.column, 3);
+  t.is(variable.source.end.line, 2);
+  t.is(variable.source.end.column, 23);
+  t.is(root.first.last.value, '@foo');
+  t.is(nodeToString(root), less);
+
+  const withoutSemicolon = parse('@foo :red');
+  t.is(withoutSemicolon.first.value, 'red');
+  t.is(nodeToString(withoutSemicolon), '@foo :red');
 });
 
 test('preserves at-rule inline comments in params and raws', (t) => {
@@ -68,6 +102,29 @@ test('@pageXxx like variable but not @page selector', (t) => {
   t.is(first.name, 'page-width');
   t.is(first.value, '"test"');
   t.is(nodeToString(root), less);
+});
+
+test('distinguishes page variables from page pseudo-selectors', (t) => {
+  for (const less of ['@page:red;', '@page : red;']) {
+    const root = parse(less);
+    t.true(root.first.variable);
+    t.is(root.first.name, 'page');
+    t.is(root.first.value, 'red');
+    t.is(nodeToString(root), less);
+  }
+
+  for (const [less, name, params] of [
+    ['@page :left {}', 'page', ':left'],
+    ['@page:left {}', 'page:left', ''],
+    ['@page :first:left /* comment */ {}', 'page', ':first:left'],
+    ['@page :custom {}', 'page', ':custom'],
+  ]) {
+    const root = parse(less);
+    t.is(root.first.variable, undefined);
+    t.is(root.first.name, name);
+    t.is(root.first.params, params);
+    t.is(nodeToString(root), less);
+  }
 });
 
 test('string values', (t) => {
