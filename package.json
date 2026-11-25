@@ -46,7 +46,7 @@
     "postcss": "8.5.32",
     "postcss-parser-tests": "8.10.0",
     "postcss-scss": "4.0.9",
-    "prettier": "3.9.10",
+    "prettier": "3.10.1",
     "release-it": "21.1.1",
     "url-join": "6.0.0"
   },
