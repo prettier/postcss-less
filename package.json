@@ -12,7 +12,16 @@
   "engines": {
     "node": ">=22"
   },
-  "exports": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./lib/less-syntax": "./lib/less-syntax.js",
+    "./lib/less-parse": "./lib/less-parse.js",
+    "./lib/less-parser": "./lib/less-parser.js",
+    "./lib/less-stringifier": "./lib/less-stringifier.js",
+    "./lib/less-stringify": "./lib/less-stringify.js",
+    "./lib/less-tokenize": "./lib/less-tokenize.js",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "fix": "run-p --continue-on-error \"fix:*\"",
     "fix:eslint": "yarn lint:eslint --fix",
