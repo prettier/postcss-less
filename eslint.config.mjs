@@ -22,6 +22,16 @@ export default [
     },
   },
   {
-    ignores: [],
+    files: ['lib/less-tokenize.js'],
+    rules: {
+      curly: 'off',
+    },
+  },
+  {
+    ignores: [
+      'lib/tokenize.js',
+      'lib/scss-tokenize.js',
+      'lib/postcss-tokenize.js',
+    ],
   },
 ];
