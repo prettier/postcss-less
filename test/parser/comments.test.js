@@ -325,12 +325,19 @@ test('issue 172', (t) => {
 });
 
 test('should preserve comments in selector', (t) => {
-  const selector = outdent`
-    a,
-    // comment
-    b
-  `;
-
-  const root = parse(`${selector} {}`);
-  t.is(root.first.selector, selector);
+  for (const selector of [
+    outdent`
+      a,
+      // comment
+      b
+    `,
+    outdent`
+      a,
+      b
+      // comment
+    `,
+  ]) {
+    const root = parse(`${selector} \n {}`);
+    t.is(root.first.selector, selector);
+  }
 });
