@@ -14,8 +14,7 @@ test('@at-rules != @imports', async (t) => {
   t.truthy(root);
   t.is(input.css, less);
   t.true(first instanceof AtRule);
-  t.is(first.name, 'const');
-  t.is(first.params, '"foo.less"');
+  t.falsy(first.import);
   t.is(nodeToString(root), less);
 });
 
@@ -29,8 +28,9 @@ test('@imports', async (t) => {
 
   t.truthy(root);
   t.is(input.css, less);
+  t.true(first.import);
   t.is(first.name, 'import');
-  t.is(first.params, '"foo.less"');
+  t.is(first.filename, '"foo.less"');
   t.is(nodeToString(root), less);
 });
 
@@ -38,7 +38,7 @@ test('import options', async (t) => {
   const less = '@import (inline) "foo.less";';
   const root = parse(less);
 
-  t.is(root.first.params, '(inline) "foo.less"');
+  t.is(root.first.options, '(inline)');
   t.is(nodeToString(root), less);
 });
 
@@ -46,7 +46,7 @@ test('multiple import options', async (t) => {
   const less = '@import (inline, once, optional) "foo.less";';
   const root = parse(less);
 
-  t.is(root.first.params, '(inline, once, optional) "foo.less"');
+  t.is(root.first.options, '(inline, once, optional)');
   t.is(nodeToString(root), less);
 });
 
@@ -54,7 +54,7 @@ test('url("filename")', async (t) => {
   const less = '@import url("foo.less");';
   const root = parse(less);
 
-  t.is(root.first.params, 'url("foo.less")');
+  t.is(root.first.filename, '"foo.less"');
   t.is(nodeToString(root), less);
 });
 
@@ -62,7 +62,7 @@ test('url(filename)', async (t) => {
   const less = '@import url(foo.less);';
   const root = parse(less);
 
-  t.is(root.first.params, 'url(foo.less)');
+  t.is(root.first.filename, 'foo.less');
   t.is(nodeToString(root), less);
 });
 
@@ -70,8 +70,7 @@ test('no spaces', async (t) => {
   const less = '@import"foo.less";';
   const root = parse(less);
 
-  t.is(root.first.name, 'import');
-  t.is(root.first.params, '"foo.less"');
+  t.is(root.first.filename, '"foo.less"');
   t.is(nodeToString(root), less);
 });
 
@@ -88,7 +87,7 @@ test('malformed filename (#88)', async (t) => {
   const less = '@import missing "missing" "not missing";';
   const root = parse(less);
 
-  t.is(root.first.params, 'missing "missing" "not missing"');
+  t.is(root.first.filename, 'missing "missing" "not missing"');
   t.is(nodeToString(root), less);
 });
 
@@ -102,7 +101,7 @@ test('missing semicolon (#88)', async (t) => {
   const root = parse(less);
 
   t.is(
-    root.first.params,
+    root.first.filename,
     '"../assets/font/league-gothic/league-gothic.css"\n\n.ManagerPage',
   );
   t.is(nodeToString(root), less);
