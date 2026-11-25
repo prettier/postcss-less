@@ -95,11 +95,16 @@ test('preserves inline comments in variable values and respects edits', (t) => {
   for (const less of [
     '@list: a, // comment\n b;',
     '@list:\ta, // comment\n b;',
+    '@list: a /* comment */ b;',
   ]) {
     const root = parse(less);
+    const value = less.match(/:\s*(.*);/s)[1];
+
+    t.is(root.first.value, value);
+    t.is(root.first.params, value);
     t.is(nodeToString(root), less);
 
     root.first.value = 'changed';
-    t.is(nodeToString(root), less.replace(/a, \/\/ comment\n b/, 'changed'));
+    t.is(nodeToString(root), less.replace(value, 'changed'));
   }
 });
