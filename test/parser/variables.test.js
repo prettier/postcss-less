@@ -1,5 +1,5 @@
 import test from 'ava';
-import { readFileSync } from 'node:fs';
+import { outdent } from 'outdent';
 import AtRule from 'postcss/lib/at-rule';
 import Input from 'postcss/lib/input';
 
@@ -111,25 +111,24 @@ test('preserves inline comments in variable values and respects edits', (t) => {
 });
 
 test('preserves leading comments in variable values', (t) => {
-  const less = readFileSync(
-    new URL('./fixtures/variable-leading-comments.less', import.meta.url),
-    'utf8',
-  );
+  const value = outdent`
+    // Fruit
+    apple,
+    banana,
+    cherry,
+    // Vegetables
+    carrot,
+    potato
+  `;
+  const less = `@items: ${value};`;
   const root = parse(less);
-  const value = `// Fruit
-  apple,
-  banana,
-  cherry,
-  // Vegetables
-  carrot,
-  potato`;
 
   t.is(root.first.value, value);
   t.is(root.first.params, value);
   t.is(nodeToString(root), less);
 
   root.first.value = 'changed';
-  t.is(nodeToString(root), '@items:\n  changed;\n');
+  t.is(nodeToString(root), '@items: changed;');
 });
 
 test('preserves leading block and comment-only variable values', (t) => {
