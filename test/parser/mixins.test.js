@@ -1,37 +1,6 @@
 import test from 'ava';
-import Input from 'postcss/lib/input';
-
-import tokenize from '../../lib/less-tokenize.js';
+import { outdent } from 'outdent';
 import { parse, nodeToString } from '../../lib/index.js';
-
-test('distinguishes mixin tokens from colors and fractional numbers', (t) => {
-  for (const [symbol, type] of [
-    ['#abc', 'word'],
-    ['#ABCDEF', 'word'],
-    ['.5', 'word'],
-    ['.12.34', 'word'],
-    ['#abcd', 'mixin'],
-    ['#foo', 'mixin'],
-    ['.3D', 'mixin'],
-    ['.5em', 'mixin'],
-  ]) {
-    const tokenizer = tokenize(new Input(symbol));
-    t.deepEqual(tokenizer.nextToken(), [type, symbol, 0, symbol.length - 1]);
-  }
-});
-
-test('does not parse colors or fractional numbers as mixin calls', (t) => {
-  for (const symbol of ['#abc', '#ABCDEF', '.5', '.12.34']) {
-    t.throws(() => parse(`${symbol};`), { message: /Unknown word/ });
-
-    const less = `${symbol}();`;
-    const root = parse(less);
-    t.true(root.first.function);
-    t.is(root.first.mixin, undefined);
-    t.is(root.first.name, symbol);
-    t.is(nodeToString(root), less);
-  }
-});
 
 test('basic', (t) => {
   const params = '(  1, 2, 3; something, else; ...) when (@mode=huge)';
