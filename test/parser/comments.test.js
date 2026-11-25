@@ -403,3 +403,26 @@ test('comments should have correct location', (t) => {
   t.deepEqual(getLocation(parse(blockComment)), expectedLocation);
   t.deepEqual(getLocation(parse('//abcd')), expectedLocation);
 });
+
+test('handles single quotes in comments', (t) => {
+  const less = `a {\n  // '\n  color: pink;\n}\n\n/** ' */`;
+
+  const root = parse(less);
+
+  const [ruleNode, commentNode] = root.nodes;
+
+  t.is(ruleNode.type, 'rule');
+  t.is(commentNode.type, 'comment');
+
+  const [innerCommentNode, declarationNode] = ruleNode.nodes;
+
+  t.is(innerCommentNode.type, 'comment');
+  t.is(declarationNode.type, 'decl');
+
+  t.is(declarationNode.source.start.line, 3);
+  t.is(declarationNode.source.start.column, 3);
+  t.is(declarationNode.source.end.line, 3);
+  t.is(declarationNode.source.end.column, 14);
+
+  t.is(nodeToString(root), less);
+});
