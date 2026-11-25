@@ -404,6 +404,7 @@ test('comments should have correct location', (t) => {
   t.deepEqual(getLocation(parse('//abcd')), expectedLocation);
 });
 
+// #163
 test('handles single quotes in comments', (t) => {
   const less = `a {\n  // '\n  color: pink;\n}\n\n/** ' */`;
 
@@ -425,4 +426,14 @@ test('handles single quotes in comments', (t) => {
   t.is(declarationNode.source.end.column, 14);
 
   t.is(nodeToString(root), less);
+});
+
+// #138
+test('parse comments with `/*`', (t) => {
+  const code = '//** Horizontal offset for forms and lists.';
+  const root = parse(code);
+  t.is(root.first.type, 'comment');
+  t.is(root.first.inline, true);
+  t.is(root.first.text, code.slice(2));
+  t.is(nodeToString(root), code);
 });
