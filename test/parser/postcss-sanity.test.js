@@ -4,14 +4,10 @@ import { eachTest, jsonify } from 'postcss-parser-tests';
 import { parse, stringify } from '../../lib/index.js';
 import { nodeToString } from '../helpers/node-to-string.js';
 
+const failedTests = new Set(['atrule-no-space.css', 'inside.css']);
+
 eachTest((name, code, json) => {
-  // Skip comments.css, because we have an extended Comment node
-  if (
-    name === 'comments.css' ||
-    name === 'atrule-no-space.css' ||
-    name === 'inside.css' ||
-    name === 'selector.css'
-  ) {
+  if (failedTests.has(name)) {
     return;
   }
 
