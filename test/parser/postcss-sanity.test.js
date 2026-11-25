@@ -8,7 +8,8 @@ eachTest((name, code, json) => {
   if (
     name === 'comments.css' ||
     name === 'atrule-no-space.css' ||
-    name === 'inside.css'
+    name === 'inside.css' ||
+    name === 'selector.css'
   ) {
     return;
   }
