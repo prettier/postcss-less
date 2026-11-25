@@ -1,2 +1,5 @@
 test/integration/ext.cx.dashboard.less
 .yarn
+lib/less-tokenize.js
+lib/scss-tokenize.js
+lib/tokenize.js

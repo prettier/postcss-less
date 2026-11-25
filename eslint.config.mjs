@@ -22,6 +22,12 @@ export default [
     },
   },
   {
+    files: ['lib/less-tokenize.js'],
+    rules: {
+      curly: 'off',
+    },
+  },
+  {
     ignores: [],
   },
 ];

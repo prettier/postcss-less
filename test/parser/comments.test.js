@@ -286,3 +286,13 @@ test('preserves source.input.file after inline comments', (t) => {
 
   t.is(nodeToString(root), less);
 });
+
+test('comment in selector', (t) => {
+  const code = outdent`
+    a // comment"
+    {}
+  `;
+
+  const root = parse(code);
+  t.is(nodeToString(root), code);
+});
