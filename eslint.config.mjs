@@ -28,6 +28,10 @@ export default [
     },
   },
   {
-    ignores: [],
+    ignores: [
+      'lib/tokenize.js',
+      'lib/scss-tokenize.js',
+      'lib/postcss-tokenize.js',
+    ],
   },
 ];

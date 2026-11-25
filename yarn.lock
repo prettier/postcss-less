@@ -4423,6 +4423,7 @@ __metadata:
     outdent: "npm:0.8.0"
     postcss: "npm:8.5.32"
     postcss-parser-tests: "npm:8.10.0"
+    postcss-scss: "npm:4.0.9"
     prettier: "npm:3.9.10"
     release-it: "npm:21.1.1"
     url-join: "npm:6.0.0"
@@ -4437,6 +4438,15 @@ __metadata:
   dependencies:
     picocolors: "npm:^1.1.1"
   checksum: 10/8bd368eeec0fdb286c324fc4d9cf36ea4d38a0baa462f59327fdc83b4a126e7db016c1fc5952bf40539867730f250f078b83b89ac68a5e3c0465bc69658dc5eb
+  languageName: node
+  linkType: hard
+
+"postcss-scss@npm:4.0.9":
+  version: 4.0.9
+  resolution: "postcss-scss@npm:4.0.9"
+  peerDependencies:
+    postcss: ^8.4.29
+  checksum: 10/d191c771344357a28995a2f53041ec699070331b8238e076001cedde97215bd3ebf596d0a9882b22c566977c4b72816dafc00028dc09153c6f97f71cd28a70f7
   languageName: node
   linkType: hard
 
