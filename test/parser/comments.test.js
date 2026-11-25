@@ -1,6 +1,7 @@
 import test from 'ava';
 import Comment from 'postcss/lib/comment';
 import { outdent } from 'outdent';
+import postcss from 'postcss';
 import { parse } from '../../lib/index.js';
 import { nodeToString } from '../utilities/node-to-string.js';
 
@@ -350,4 +351,17 @@ test('should preserve comments in selector', (t) => {
     t.is(root.first.raws.between, '\n// comment\n');
     t.is(nodeToString(root), code);
   }
+});
+
+test('comments should have correct location', (t) => {
+  const getLocation = (node) => {
+    const { start, end } = node.source;
+    return { start, end };
+  };
+
+  const blockComment = '/*ab*/';
+  const expectedLocation = getLocation(postcss.parse(blockComment));
+
+  t.deepEqual(getLocation(parse(blockComment)), expectedLocation);
+  t.deepEqual(getLocation(parse('//abcd')), expectedLocation);
 });
