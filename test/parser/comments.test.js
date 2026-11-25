@@ -325,17 +325,23 @@ test('issue 172', (t) => {
   }
 });
 
-test('should preserve comments in selector', (t) => {
+test('should remove comments in selector', (t) => {
   {
     const selector = outdent`
       a,
       // comment
       b
     `;
+    const selectorWithoutComment = outdent`
+      a,
+
+      b
+    `;
 
     const code = `${selector} {}`;
     const root = parse(code);
-    t.is(root.first.selector, selector);
+    t.is(root.first.selector, selectorWithoutComment);
+    t.is(root.first.raws.selector.raw, selector);
     t.is(nodeToString(root), code);
   }
 
@@ -349,6 +355,38 @@ test('should preserve comments in selector', (t) => {
     const root = parse(code);
     t.is(root.first.selector, 'a,\nb');
     t.is(root.first.raws.between, '\n// comment\n');
+    t.is(nodeToString(root), code);
+  }
+
+  // #147
+  {
+    const code = outdent`
+      // comment1
+      .a, .b,
+      // comment2
+      .c {}
+    `;
+    const root = parse(code);
+
+    t.is(root.first.type, 'comment');
+    t.is(root.first.text, 'comment1');
+
+    t.is(
+      root.last.selector,
+      outdent`
+        .a, .b,
+
+        .c
+      `,
+    );
+    t.is(
+      root.last.raws.selector.raw,
+      outdent`
+        .a, .b,
+        // comment2
+        .c
+      `,
+    );
     t.is(nodeToString(root), code);
   }
 });
