@@ -12,7 +12,11 @@
   "engines": {
     "node": ">=22"
   },
-  "exports": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./lib/less-parser": "./lib/less-parser.js",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "fix": "run-p --continue-on-error \"fix:*\"",
     "fix:eslint": "yarn lint:eslint --fix",
