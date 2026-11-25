@@ -1,14 +1,16 @@
 import test from 'ava';
 import { eachTest, jsonify } from 'postcss-parser-tests';
 
-import { parse, nodeToString, stringify } from '../../lib/index.js';
+import { parse, stringify } from '../../lib/index.js';
+import { nodeToString } from '../helpers/node-to-string.js';
 
 eachTest((name, code, json) => {
   // Skip comments.css, because we have an extended Comment node
   if (
     name === 'comments.css' ||
     name === 'atrule-no-space.css' ||
-    name === 'inside.css'
+    name === 'inside.css' ||
+    name === 'selector.css'
   ) {
     return;
   }

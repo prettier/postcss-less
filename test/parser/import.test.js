@@ -1,7 +1,8 @@
 import test from 'ava';
 import AtRule from 'postcss/lib/at-rule';
 
-import { parse, nodeToString } from '../../lib/index.js';
+import { parse } from '../../lib/index.js';
+import { nodeToString } from '../helpers/node-to-string.js';
 
 test('@at-rules != @imports', async (t) => {
   const less = '@const "foo.less";';
@@ -49,11 +50,36 @@ test('multiple import options', async (t) => {
   t.is(nodeToString(root), less);
 });
 
+test('interpolated filename', async (t) => {
+  const less = '@import (optional) "@{file}.less";';
+  const root = parse(less);
+
+  t.is(root.first.options, '(optional)');
+  t.is(root.first.filename, '"@{file}.less"');
+  t.is(nodeToString(root), less);
+});
+
 test('url("filename")', async (t) => {
   const less = '@import url("foo.less");';
   const root = parse(less);
 
   t.is(root.first.filename, '"foo.less"');
+  t.is(nodeToString(root), less);
+});
+
+test('url with parentheses in filename', async (t) => {
+  const less = '@import url("foo(bar).less");';
+  const root = parse(less);
+
+  t.is(root.first.filename, '"foo(bar).less"');
+  t.is(nodeToString(root), less);
+});
+
+test('url with escaped closing parenthesis', async (t) => {
+  const less = '@import url(foo\\)bar);';
+  const root = parse(less);
+
+  t.is(root.first.filename, 'foo\\)bar');
   t.is(nodeToString(root), less);
 });
 

@@ -1,6 +1,7 @@
 import test from 'ava';
-
-import { parse, nodeToString } from '../../lib/index.js';
+import { outdent } from 'outdent';
+import { parse } from '../../lib/index.js';
+import { nodeToString } from '../helpers/node-to-string.js';
 
 test('basic', (t) => {
   const params = '(  1, 2, 3; something, else; ...) when (@mode=huge)';
@@ -305,6 +306,7 @@ test('mixin parameters with functions (#122)', (t) => {
   const { first } = root;
 
   t.is(first.name, 'mixin');
+  t.is(first.mixin, true);
   t.is(nodeToString(root), less);
 });
 
@@ -321,6 +323,7 @@ test('mixin parameters with multiple parens', (t) => {
   const { first, last } = root;
 
   t.is(first.name, 'mixin');
+  t.is(first.mixin, true);
   t.is(last.selector, '.two');
   t.is(nodeToString(root), less);
 });
@@ -335,6 +338,7 @@ test('support mixin starts with a digit', (t) => {
   const { first, last } = root;
 
   t.is(first.name, '3D');
+  t.is(first.mixin, true);
   t.is(last.selector, '.3D(...)');
   t.is(nodeToString(root), less);
 });
@@ -349,6 +353,30 @@ test('support mixin starts with a backslash', (t) => {
   const { first, last } = root;
 
   t.is(first.name, '\\123');
+  t.is(first.mixin, true);
   t.is(last.name, '\\x');
+  t.is(nodeToString(root), less);
+});
+
+test('support mixin looks like a color or number', (t) => {
+  const less = outdent`
+    #eee,
+    .3{
+      color: red;
+    }
+
+    a {
+      #eee();
+      .3()
+    }
+  `;
+
+  const root = parse(less);
+  const node = root.nodes[1].nodes;
+
+  t.is(node[0].name, 'eee');
+  t.is(node[0].mixin, true);
+  t.is(node[1].name, '3');
+  t.is(node[1].mixin, true);
   t.is(nodeToString(root), less);
 });

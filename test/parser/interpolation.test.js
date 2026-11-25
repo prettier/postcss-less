@@ -1,9 +1,72 @@
 /* eslint no-useless-escape: off */
 
 import test from 'ava';
+import Input from 'postcss/lib/input';
 
-import { nodeToString, parse } from '../../lib/index.js';
+import { parse } from '../../lib/index.js';
+import { nodeToString } from '../helpers/node-to-string.js';
+import tokenize from '../../lib/less-tokenize.js';
 import { outdent } from 'outdent';
+
+test('tokenizes interpolations as words with their source positions', (t) => {
+  const tokenizer = tokenize(
+    new Input('pre@{sizes["}"]}mid${prop}post @{outer-@{inner}}'),
+  );
+  const tokens = [];
+  while (!tokenizer.endOfFile()) {
+    tokens.push(tokenizer.nextToken());
+  }
+
+  t.deepEqual(tokens, [
+    ['word', 'pre', 0, 2],
+    ['word', '@{sizes["}"]}', 3, 15],
+    ['word', 'mid', 16, 18],
+    ['word', '${prop}', 19, 25],
+    ['word', 'post', 26, 29],
+    ['space', ' '],
+    ['word', '@{outer-@{inner}}', 31, 47],
+  ]);
+});
+
+test('reports unclosed interpolations and supports ignored errors', (t) => {
+  for (const text of ['@{name', '${name']) {
+    const tokenizer = tokenize(new Input(text));
+    t.throws(() => tokenizer.nextToken(), {
+      message: /Unclosed interpolation/,
+    });
+
+    const tolerant = tokenize(new Input(text));
+    t.deepEqual(tolerant.nextToken({ ignoreUnclosed: true }), [
+      'word',
+      text,
+      0,
+      text.length - 1,
+    ]);
+    t.true(tolerant.endOfFile());
+  }
+});
+
+test('preserves incomplete interpolation as literal string content', (t) => {
+  const less = 'a { content: "@{unfinished"; }';
+  const root = parse(less);
+
+  t.is(root.first.first.value, '"@{unfinished"');
+  t.is(nodeToString(root), less);
+});
+
+test('parses adjacent and nested interpolation throughout a rule', (t) => {
+  const less =
+    '@media @{outer-@{inner}} { .@{class}-${suffix} { ${prop}-@{part}: ${value}; } }';
+  const root = parse(less);
+  const rule = root.first.first;
+
+  t.is(root.first.params, '@{outer-@{inner}}');
+  t.is(rule.selector, '.@{class}-${suffix}');
+  t.is(rule.first.prop, '${prop}-@{part}');
+  t.is(rule.first.value, '${value}');
+  t.is(rule.first.source.end.offset, less.indexOf(';') + 1);
+  t.is(nodeToString(root), less);
+});
 
 test('parses interpolation', (t) => {
   const root = parse('@{selector}:hover { @{prop}-size: @{color} }');

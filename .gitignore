@@ -14,3 +14,7 @@ s.js
 !.yarn/sdks
 !.yarn/versions
 **/.pnp.*
+
+lib/tokenize.js
+lib/scss-tokenize.js
+lib/postcss-tokenize.js

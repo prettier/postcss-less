@@ -1,6 +1,7 @@
 import test from 'ava';
 
-import { parse, nodeToString } from '../lib/index.js';
+import { parse } from '../lib/index.js';
+import { nodeToString } from './helpers/node-to-string.js';
 
 const run = (less) => {
   const root = parse(less);

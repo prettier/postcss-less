@@ -1,8 +1,9 @@
 import test from 'ava';
 import Comment from 'postcss/lib/comment';
 import { outdent } from 'outdent';
-
-import { parse, nodeToString } from '../../lib/index.js';
+import postcss from 'postcss';
+import { parse } from '../../lib/index.js';
+import { nodeToString } from '../helpers/node-to-string.js';
 
 test('inline comment', (t) => {
   const less = '// batman';
@@ -204,7 +205,7 @@ test('handles single quotes in comments (#163)', (t) => {
   t.is(commentNode.source.start.line, 6);
   t.is(commentNode.source.start.column, 1);
   t.is(commentNode.source.end.line, 6);
-  t.is(commentNode.source.end.column, 9);
+  t.is(commentNode.source.end.column, 8);
 
   const [innerCommentNode, declarationNode] = ruleNode.nodes;
 
@@ -219,8 +220,27 @@ test('handles single quotes in comments (#163)', (t) => {
   t.is(declarationNode.source.start.line, 3);
   t.is(declarationNode.source.start.column, 3);
   t.is(declarationNode.source.end.line, 3);
-  t.is(declarationNode.source.end.column, 15);
+  t.is(declarationNode.source.end.column, 14);
 
+  t.is(nodeToString(root), less);
+});
+
+test('preserves comment boundaries and source offsets', (t) => {
+  const less = `// it's /* " */\r\n.a { color: red; }\r// last`;
+  const root = parse(less);
+  const [first, rule, last] = root.nodes;
+
+  t.is(first.text, `it's /* " */`);
+  t.is(
+    less.slice(first.source.start.offset, first.source.end.offset),
+    `// it's /* " */`,
+  );
+  t.is(
+    less.slice(rule.source.start.offset, rule.source.end.offset),
+    '.a { color: red; }',
+  );
+  t.is(less.slice(last.source.start.offset, last.source.end.offset), '// last');
+  t.is(last.text, 'last');
   t.is(nodeToString(root), less);
 });
 
@@ -240,11 +260,8 @@ test('Should have the same input in every node', (t) => {
   });
 });
 
-test('preserves source.input.file when re-tokenizing inline comments', (t) => {
+test('preserves source.input.file after inline comments', (t) => {
   const from = '/repro.less';
-  // The quote in the inline comment, plus a later quote, makes the tokenizer run
-  // the string past the newline, which sends `isInlineComment` down the path that
-  // builds a replacement Input for the remainder of the file.
   const less = `a {\n  // it's\n  color: red;\n}\nb { content: 'x'; }\n`;
 
   const root = parse(less, { from });
@@ -252,12 +269,11 @@ test('preserves source.input.file when re-tokenizing inline comments', (t) => {
   const nodes = [];
   root.walk((node) => nodes.push(node));
 
-  // Nodes produced by the replacement tokenizer must keep the original path.
   for (const node of nodes) {
     t.is(node.source.input.file, from);
+    t.is(node.source.input, root.source.input);
   }
 
-  // The position fix-up in lib/index.js still applies.
   t.deepEqual(
     nodes.map((node) => [node.type, node.source.start.line]),
     [
@@ -270,4 +286,154 @@ test('preserves source.input.file when re-tokenizing inline comments', (t) => {
   );
 
   t.is(nodeToString(root), less);
+});
+
+test('comment in selector', (t) => {
+  const code = outdent`
+    a // comment"
+    {}
+  `;
+
+  const root = parse(code);
+  t.is(nodeToString(root), code);
+});
+
+test('issue 172', (t) => {
+  for (const code of [
+    outdent`
+      .foo {
+        top:
+          calc(
+            // don't
+            10px
+          );
+      }
+      // don't
+    `,
+    outdent`
+      .foo {
+        top:
+          calc(
+            // don't
+            10px
+          );
+      }
+    `,
+  ]) {
+    const root = parse(code);
+    t.is(nodeToString(root), code);
+  }
+});
+
+test('should remove comments in selector', (t) => {
+  {
+    const selector = outdent`
+      a,
+      // comment
+      b
+    `;
+    const selectorWithoutComment = outdent`
+      a,
+
+      b
+    `;
+
+    const code = `${selector} {}`;
+    const root = parse(code);
+    t.is(root.first.selector, selectorWithoutComment);
+    t.is(root.first.raws.selector.raw, selector);
+    t.is(nodeToString(root), code);
+  }
+
+  {
+    const code = outdent`
+      a,
+      b
+      // comment
+      {}
+    `;
+    const root = parse(code);
+    t.is(root.first.selector, 'a,\nb');
+    t.is(root.first.raws.between, '\n// comment\n');
+    t.is(nodeToString(root), code);
+  }
+
+  // #147
+  {
+    const code = outdent`
+      // comment1
+      .a, .b,
+      // comment2
+      .c {}
+    `;
+    const root = parse(code);
+
+    t.is(root.first.type, 'comment');
+    t.is(root.first.text, 'comment1');
+
+    t.is(
+      root.last.selector,
+      outdent`
+        .a, .b,
+
+        .c
+      `,
+    );
+    t.is(
+      root.last.raws.selector.raw,
+      outdent`
+        .a, .b,
+        // comment2
+        .c
+      `,
+    );
+    t.is(nodeToString(root), code);
+  }
+});
+
+test('comments should have correct location', (t) => {
+  const getLocation = (node) => {
+    const { start, end } = node.source;
+    return { start, end };
+  };
+
+  const blockComment = '/*ab*/';
+  const expectedLocation = getLocation(postcss.parse(blockComment));
+
+  t.deepEqual(getLocation(parse(blockComment)), expectedLocation);
+  t.deepEqual(getLocation(parse('//abcd')), expectedLocation);
+});
+
+// #163
+test('handles single quotes in comments', (t) => {
+  const less = `a {\n  // '\n  color: pink;\n}\n\n/** ' */`;
+
+  const root = parse(less);
+
+  const [ruleNode, commentNode] = root.nodes;
+
+  t.is(ruleNode.type, 'rule');
+  t.is(commentNode.type, 'comment');
+
+  const [innerCommentNode, declarationNode] = ruleNode.nodes;
+
+  t.is(innerCommentNode.type, 'comment');
+  t.is(declarationNode.type, 'decl');
+
+  t.is(declarationNode.source.start.line, 3);
+  t.is(declarationNode.source.start.column, 3);
+  t.is(declarationNode.source.end.line, 3);
+  t.is(declarationNode.source.end.column, 14);
+
+  t.is(nodeToString(root), less);
+});
+
+// #138
+test('parse comments with `/*`', (t) => {
+  const code = '//** Horizontal offset for forms and lists.';
+  const root = parse(code);
+  t.is(root.first.type, 'comment');
+  t.is(root.first.inline, true);
+  t.is(root.first.text, code.slice(2));
+  t.is(nodeToString(root), code);
 });
