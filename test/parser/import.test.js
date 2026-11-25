@@ -49,6 +49,15 @@ test('multiple import options', async (t) => {
   t.is(nodeToString(root), less);
 });
 
+test('interpolated filename', async (t) => {
+  const less = '@import (optional) "@{file}.less";';
+  const root = parse(less);
+
+  t.is(root.first.options, '(optional)');
+  t.is(root.first.filename, '"@{file}.less"');
+  t.is(nodeToString(root), less);
+});
+
 test('url("filename")', async (t) => {
   const less = '@import url("foo.less");';
   const root = parse(less);
