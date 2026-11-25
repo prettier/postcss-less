@@ -73,6 +73,15 @@ test('no spaces', async (t) => {
   t.is(nodeToString(root), less);
 });
 
+test('escaped at-rule name', async (t) => {
+  const less = String.raw`@im\70 ort "foo.less";`;
+  const root = parse(less);
+
+  t.is(root.first.name, String.raw`im\70 ort`);
+  t.is(root.first.params, '"foo.less"');
+  t.is(nodeToString(root), less);
+});
+
 test('malformed filename (#88)', async (t) => {
   const less = '@import missing "missing" "not missing";';
   const root = parse(less);
