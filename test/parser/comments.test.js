@@ -325,21 +325,29 @@ test('issue 172', (t) => {
 });
 
 test('should preserve comments in selector', (t) => {
-  for (const selector of [
-    outdent`
+  {
+    const selector = outdent`
       a,
       // comment
       b
-    `,
-    outdent`
-      a,
-      b
-      // comment
-    `,
-  ]) {
-    const code = `${selector} \n {}`;
+    `;
+
+    const code = `${selector} {}`;
     const root = parse(code);
     t.is(root.first.selector, selector);
+    t.is(nodeToString(root), code);
+  }
+
+  {
+    const code = outdent`
+      a,
+      b
+      // comment
+      {}
+    `;
+    const root = parse(code);
+    t.is(root.first.selector, 'a,\nb');
+    t.is(root.first.raws.between, '\n// comment\n');
     t.is(nodeToString(root), code);
   }
 });
