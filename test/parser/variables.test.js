@@ -1,7 +1,19 @@
 import test from 'ava';
 import AtRule from 'postcss/lib/at-rule';
+import Input from 'postcss/lib/input';
 
+import tokenize from '../../lib/less-tokenize.js';
 import { parse, nodeToString } from '../../lib/index.js';
+
+test('marks variable declarations in the tokenizer', (t) => {
+  const tokenizer = tokenize(new Input('@var: value;'));
+  const token = tokenizer.nextToken();
+
+  t.deepEqual(token, ['at-word', '@var:', 0, 4, 'variable']);
+
+  const atRuleTokenizer = tokenize(new Input('@page :last {}'));
+  t.deepEqual(atRuleTokenizer.nextToken(), ['at-word', '@page', 0, 4]);
+});
 
 test('numeric', (t) => {
   const less = '@var: 1;';
