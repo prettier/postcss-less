@@ -1,4 +1,5 @@
 import test from 'ava';
+import { readFileSync } from 'node:fs';
 import AtRule from 'postcss/lib/at-rule';
 import Input from 'postcss/lib/input';
 
@@ -106,5 +107,43 @@ test('preserves inline comments in variable values and respects edits', (t) => {
 
     root.first.value = 'changed';
     t.is(nodeToString(root), less.replace(value, 'changed'));
+  }
+});
+
+test('preserves leading comments in variable values', (t) => {
+  const less = readFileSync(
+    new URL('./fixtures/variable-leading-comments.less', import.meta.url),
+    'utf8',
+  );
+  const root = parse(less);
+  const value = `// Fruit
+  apple,
+  banana,
+  cherry,
+  // Vegetables
+  carrot,
+  potato`;
+
+  t.is(root.first.value, value);
+  t.is(root.first.params, value);
+  t.is(nodeToString(root), less);
+
+  root.first.value = 'changed';
+  t.is(nodeToString(root), '@items:\n  changed;\n');
+});
+
+test('preserves leading block and comment-only variable values', (t) => {
+  for (const [less, value] of [
+    [
+      '@item: /* first */ // second\n  apple;',
+      '/* first */ // second\n  apple',
+    ],
+    ['@item: /* only */ ;', '/* only */ '],
+    ['@item: // only\n;', '// only\n'],
+  ]) {
+    const root = parse(less);
+    t.is(root.first.value, value);
+    t.is(root.first.params, value);
+    t.is(nodeToString(root), less);
   }
 });
