@@ -1,5 +1,6 @@
 import test from 'ava';
-import { parse, nodeToString } from '../lib/index.js';
+import { parse } from '../lib/index.js';
+import { nodeToString } from './utilities/node-to-string.js';
 import lessTestSuite from 'less-test-suite';
 
 const skipTests = new Set([

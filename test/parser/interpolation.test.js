@@ -3,7 +3,8 @@
 import test from 'ava';
 import Input from 'postcss/lib/input';
 
-import { nodeToString, parse } from '../../lib/index.js';
+import { parse } from '../../lib/index.js';
+import { nodeToString } from '../utilities/node-to-string.js';
 import tokenize from '../../lib/less-tokenize.js';
 import { outdent } from 'outdent';
 

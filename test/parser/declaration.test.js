@@ -1,6 +1,7 @@
 import test from 'ava';
 
-import { parse, nodeToString } from '../../lib/index.js';
+import { parse } from '../../lib/index.js';
+import { nodeToString } from '../utilities/node-to-string.js';
 
 test('should allow case-insensitive !important (#89)', (t) => {
   const less = 'a{k: v !IMPORTANT;}';

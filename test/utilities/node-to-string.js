@@ -1,4 +1,4 @@
-import stringify from './less-stringify.js';
+import { stringify } from '../../lib/index.js';
 
 function nodeToString(node) {
   let result = '';

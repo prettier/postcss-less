@@ -1,8 +1,8 @@
 import test from 'ava';
 import Comment from 'postcss/lib/comment';
 import { outdent } from 'outdent';
-
-import { parse, nodeToString } from '../../lib/index.js';
+import { parse } from '../../lib/index.js';
+import { nodeToString } from '../utilities/node-to-string.js';
 
 test('inline comment', (t) => {
   const less = '// batman';

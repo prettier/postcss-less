@@ -4,7 +4,8 @@ import AtRule from 'postcss/lib/at-rule';
 import Input from 'postcss/lib/input';
 
 import tokenize from '../../lib/less-tokenize.js';
-import { parse, nodeToString } from '../../lib/index.js';
+import { parse } from '../../lib/index.js';
+import { nodeToString } from '../utilities/node-to-string.js';
 
 test('marks variable declarations in the tokenizer', (t) => {
   const tokenizer = tokenize(new Input('@var: value;'));
