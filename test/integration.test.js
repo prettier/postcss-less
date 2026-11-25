@@ -1,8 +1,6 @@
 /* eslint no-await-in-loop: off */
 
-// TODO: enable when interpolation has been fixed
-// const { readFileSync } = require('fs');
-// const { join } = require('path');
+import { readFileSync } from 'node:fs';
 
 import test from 'ava';
 import * as cheerio from 'cheerio';
@@ -49,10 +47,13 @@ for (const site of sites) {
 }
 
 // sanity check - issue #99
-// TODO: enable when interpolation has been fixed
-// test('should not fail wikimedia sanity check', (t) => {
-//   const less = readFileSync(join(__dirname, './integration/ext.cx.dashboard.less'), 'utf-8');
-//   const root = syntax.parse(less);
-//
-//   t.is(root.first.type, 'import');
-// });
+test('should not fail wikimedia sanity check', (t) => {
+  const less = readFileSync(
+    new URL('./integration/ext.cx.dashboard.less', import.meta.url),
+    'utf-8',
+  );
+  const root = syntax.parse(less);
+
+  t.is(root.first.type, 'atrule');
+  t.is(root.first.import, true);
+});
