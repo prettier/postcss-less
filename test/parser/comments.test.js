@@ -296,3 +296,30 @@ test('comment in selector', (t) => {
   const root = parse(code);
   t.is(nodeToString(root), code);
 });
+
+test('issue 172', (t) => {
+  for (const code of [
+    outdent`
+      .foo {
+        top:
+          calc(
+            // don't
+            10px
+          );
+      }
+      // don't
+    `,
+    outdent`
+      .foo {
+        top:
+          calc(
+            // don't
+            10px
+          );
+      }
+    `,
+  ]) {
+    const root = parse(code);
+    t.is(nodeToString(root), code);
+  }
+});
