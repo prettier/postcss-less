@@ -337,7 +337,9 @@ test('should preserve comments in selector', (t) => {
       // comment
     `,
   ]) {
-    const root = parse(`${selector} \n {}`);
+    const code = `${selector} \n {}`;
+    const root = parse(code);
     t.is(root.first.selector, selector);
+    t.is(nodeToString(root), code);
   }
 });
