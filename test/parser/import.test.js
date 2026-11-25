@@ -66,6 +66,22 @@ test('url("filename")', async (t) => {
   t.is(nodeToString(root), less);
 });
 
+test('url with parentheses in filename', async (t) => {
+  const less = '@import url("foo(bar).less");';
+  const root = parse(less);
+
+  t.is(root.first.filename, '"foo(bar).less"');
+  t.is(nodeToString(root), less);
+});
+
+test('url with escaped closing parenthesis', async (t) => {
+  const less = '@import url(foo\\)bar);';
+  const root = parse(less);
+
+  t.is(root.first.filename, 'foo\\)bar');
+  t.is(nodeToString(root), less);
+});
+
 test('url(filename)', async (t) => {
   const less = '@import url(foo.less);';
   const root = parse(less);
