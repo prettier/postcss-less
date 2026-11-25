@@ -102,7 +102,8 @@ Parsing of LESS variables is supported.
 
 The AST will contain an `AtRule` node with a `variable: true` property.
 
-Whitespace and comments are allowed on either side of the colon.
+Whitespace is allowed on either side of the colon. Comments are allowed after
+the colon, but not between the variable name and the colon.
 
 ## Stringify
 

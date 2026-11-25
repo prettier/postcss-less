@@ -1,26 +1,19 @@
 import test from 'ava';
+import less from 'less';
 import { outdent } from 'outdent';
 import AtRule from 'postcss/lib/at-rule';
 
 import { parse } from '../../lib/index.js';
 import { nodeToString } from '../helpers/node-to-string.js';
 
-test('parses variables with whitespace and comments around the colon', (t) => {
+test('parses variables with whitespace and comments after the colon', (t) => {
   for (const [less, afterName, value] of [
     ['@foo:red;', ':', 'red'],
     ['@foo :red;', ' :', 'red'],
     ['@foo : red;', ' : ', 'red'],
-    ['@foo/* before */:red;', '/* before */:', 'red'],
-    [
-      '@foo /* first */ /* second */ : /* after */ red;',
-      ' /* first */ /* second */ : ',
-      '/* after */ red',
-    ],
-    ['@foo // comment\n: red;', ' // comment\n: ', 'red'],
-    ['@foo // first\n // second\n: red;', ' // first\n // second\n: ', 'red'],
-    ['@foo/* before */: // after\nred;', '/* before */: ', '// after\nred'],
-    ["@foo // it's; { not closed\n: red;", " // it's; { not closed\n: ", 'red'],
     ['@foo:/* after */red;', ':', '/* after */red'],
+    ['@foo : /* after */ red;', ' : ', '/* after */ red'],
+    ['@foo: // after\nred;', ': ', '// after\nred'],
   ]) {
     const root = parse(less);
     const node = root.first;
@@ -38,8 +31,31 @@ test('parses variables with whitespace and comments around the colon', (t) => {
   }
 });
 
+test('matches Less variable classification around the colon', async (t) => {
+  for (const [source, isVariable] of [
+    ['@foo:red;', true],
+    ['@foo :red;', true],
+    ['@foo : red;', true],
+    ['@foo:/* after */red;', true],
+    ['@foo: // after\nred;', true],
+    ['@foo/* before */:red;', false],
+    ['@foo /* first */ /* second */ : /* after */ red;', false],
+    ['@foo // comment\n: red;', false],
+    ['@foo // first\n // second\n: red;', false],
+    ["@foo // it's; { not closed\n: red;", false],
+  ]) {
+    const lessRoot = await less.parse(source);
+    const root = parse(source);
+
+    t.is(lessRoot.rules[0].type === 'Declaration', isVariable);
+    t.is(Boolean(root.first.variable), isVariable);
+    t.is(root.first.name, 'foo');
+    t.is(nodeToString(root), source);
+  }
+});
+
 test('parses nested and unterminated variable declarations', (t) => {
-  const less = '.rule {\n  @foo /* note */ :red;\n  color: @foo;\n}';
+  const less = '.rule {\n  @foo          :red;\n  color: @foo;\n}';
   const root = parse(less);
   const variable = root.first.first;
 
@@ -49,7 +65,7 @@ test('parses nested and unterminated variable declarations', (t) => {
   t.is(variable.source.start.line, 2);
   t.is(variable.source.start.column, 3);
   t.is(variable.source.end.line, 2);
-  t.is(variable.source.end.column, 23);
+  t.is(variable.source.end.column, 21);
   t.is(root.first.last.value, '@foo');
   t.is(nodeToString(root), less);
 
