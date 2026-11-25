@@ -2,7 +2,7 @@ import test from 'ava';
 import { eachTest, jsonify } from 'postcss-parser-tests';
 
 import { parse, stringify } from '../../lib/index.js';
-import { nodeToString } from '../utilities/node-to-string.js';
+import { nodeToString } from '../helpers/node-to-string.js';
 
 eachTest((name, code, json) => {
   // Skip comments.css, because we have an extended Comment node

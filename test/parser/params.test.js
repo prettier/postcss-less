@@ -1,7 +1,7 @@
 import test from 'ava';
 
 import { parse } from '../../lib/index.js';
-import { nodeToString } from '../utilities/node-to-string.js';
+import { nodeToString } from '../helpers/node-to-string.js';
 
 test('should not assign parameters for pseudo-selectors (#56)', (t) => {
   const less = '.test2:not(.test3) {}';

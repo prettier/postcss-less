@@ -3,7 +3,7 @@ import Comment from 'postcss/lib/comment';
 import { outdent } from 'outdent';
 import postcss from 'postcss';
 import { parse } from '../../lib/index.js';
-import { nodeToString } from '../utilities/node-to-string.js';
+import { nodeToString } from '../helpers/node-to-string.js';
 
 test('inline comment', (t) => {
   const less = '// batman';

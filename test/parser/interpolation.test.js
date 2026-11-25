@@ -4,7 +4,7 @@ import test from 'ava';
 import Input from 'postcss/lib/input';
 
 import { parse } from '../../lib/index.js';
-import { nodeToString } from '../utilities/node-to-string.js';
+import { nodeToString } from '../helpers/node-to-string.js';
 import tokenize from '../../lib/less-tokenize.js';
 import { outdent } from 'outdent';
 

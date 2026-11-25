@@ -1,7 +1,7 @@
 import test from 'ava';
 
 import { parse } from '../../lib/index.js';
-import { nodeToString } from '../utilities/node-to-string.js';
+import { nodeToString } from '../helpers/node-to-string.js';
 
 test('inline :extend()', (t) => {
   const less = '.a:extend(.b) {color: red;}';

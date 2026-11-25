@@ -1,7 +1,7 @@
 import test from 'ava';
 import { outdent } from 'outdent';
 import { parse } from '../../lib/index.js';
-import { nodeToString } from '../utilities/node-to-string.js';
+import { nodeToString } from '../helpers/node-to-string.js';
 
 test('basic', (t) => {
   const params = '(  1, 2, 3; something, else; ...) when (@mode=huge)';

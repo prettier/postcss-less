@@ -1,7 +1,7 @@
 import test from 'ava';
 
 import { parse } from '../../lib/index.js';
-import { nodeToString } from '../utilities/node-to-string.js';
+import { nodeToString } from '../helpers/node-to-string.js';
 
 test('each (#121)', (t) => {
   const params = `(@colors, {
