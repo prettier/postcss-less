@@ -78,3 +78,16 @@ bar
   t.is(first.source.end.line, 4);
   t.is(nodeToString(root), less);
 });
+
+test('preserves inline comments in variable values and respects edits', (t) => {
+  for (const less of [
+    '@list: a, // comment\n b;',
+    '@list:\ta, // comment\n b;',
+  ]) {
+    const root = parse(less);
+    t.is(nodeToString(root), less);
+
+    root.first.value = 'changed';
+    t.is(nodeToString(root), less.replace(/a, \/\/ comment\n b/, 'changed'));
+  }
+});

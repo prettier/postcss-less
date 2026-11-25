@@ -204,7 +204,7 @@ test('handles single quotes in comments (#163)', (t) => {
   t.is(commentNode.source.start.line, 6);
   t.is(commentNode.source.start.column, 1);
   t.is(commentNode.source.end.line, 6);
-  t.is(commentNode.source.end.column, 9);
+  t.is(commentNode.source.end.column, 8);
 
   const [innerCommentNode, declarationNode] = ruleNode.nodes;
 
@@ -219,8 +219,27 @@ test('handles single quotes in comments (#163)', (t) => {
   t.is(declarationNode.source.start.line, 3);
   t.is(declarationNode.source.start.column, 3);
   t.is(declarationNode.source.end.line, 3);
-  t.is(declarationNode.source.end.column, 15);
+  t.is(declarationNode.source.end.column, 14);
 
+  t.is(nodeToString(root), less);
+});
+
+test('preserves comment boundaries and source offsets', (t) => {
+  const less = `// it's /* " */\r\n.a { color: red; }\r// last`;
+  const root = parse(less);
+  const [first, rule, last] = root.nodes;
+
+  t.is(first.text, `it's /* " */`);
+  t.is(
+    less.slice(first.source.start.offset, first.source.end.offset),
+    `// it's /* " */`,
+  );
+  t.is(
+    less.slice(rule.source.start.offset, rule.source.end.offset),
+    '.a { color: red; }',
+  );
+  t.is(less.slice(last.source.start.offset, last.source.end.offset), '// last');
+  t.is(last.text, 'last');
   t.is(nodeToString(root), less);
 });
 
@@ -240,11 +259,8 @@ test('Should have the same input in every node', (t) => {
   });
 });
 
-test('preserves source.input.file when re-tokenizing inline comments', (t) => {
+test('preserves source.input.file after inline comments', (t) => {
   const from = '/repro.less';
-  // The quote in the inline comment, plus a later quote, makes the tokenizer run
-  // the string past the newline, which sends `isInlineComment` down the path that
-  // builds a replacement Input for the remainder of the file.
   const less = `a {\n  // it's\n  color: red;\n}\nb { content: 'x'; }\n`;
 
   const root = parse(less, { from });
@@ -252,12 +268,11 @@ test('preserves source.input.file when re-tokenizing inline comments', (t) => {
   const nodes = [];
   root.walk((node) => nodes.push(node));
 
-  // Nodes produced by the replacement tokenizer must keep the original path.
   for (const node of nodes) {
     t.is(node.source.input.file, from);
+    t.is(node.source.input, root.source.input);
   }
 
-  // The position fix-up in lib/index.js still applies.
   t.deepEqual(
     nodes.map((node) => [node.type, node.source.start.line]),
     [
